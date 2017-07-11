@@ -47,19 +47,17 @@ int main (int argc, char* argv[]) {
 	int c;
 	opterr = 0;
 	while ((c = getopt (argc, argv, "f:")) != -1)
-	    switch (c)
-	    {
-	    case '?':
+		switch (c)
+		{
+		case '?':
 				if (isprint (optopt))
-		          fprintf (stderr, "Unknown option `-%c'.\n", optopt);
-		        else
-		          fprintf (stderr,
-		                   "Unknown option character `\\x%x'.\n",
-		                   optopt);
-		        return 1;
-	    default:
-		        abort ();
-	    }
+					fprintf (stderr, "Unknown option `-%c'.\n", optopt);
+				else
+					fprintf (stderr, "Unknown option character `\\x%x'.\n",	optopt);
+				return 1;
+		default:
+				abort ();
+		}
 
 	printf("#==============================================\n");
 	printf("#--- Example 1: Current-biased SIS junction ---\n");
@@ -176,12 +174,12 @@ void sis_cbias(double gamma_start, double gamma_finish, double gamma_step) {
 	
 		for(t=0.; t<TMAX; t+=DT) {
 	
-	      	mitmojco_update( sis_tunnel_current ); // Update the tunnel current
+			mitmojco_update( sis_tunnel_current ); // Update the tunnel current
 
-	        phi_new = factor*( 2.*phi + ( -1 + 0.5 * sis_tunnel_current->alphaN * DT)*phi_old + DT*DT*(gamma - sis_tunnel_current->jbar[0]) );
+			phi_new = factor*( 2.*phi + ( -1 + 0.5 * sis_tunnel_current->alphaN * DT)*phi_old + DT*DT*(gamma - sis_tunnel_current->jbar[0]) );
 	
 			/* Make a record to the filter object */
-	        if(t > SETTLING_TIME)
+			if(t > SETTLING_TIME)
 				opt_filter_update(voltage_filter, phi_new-phi_old);
 	
 		   	/* Update variables */

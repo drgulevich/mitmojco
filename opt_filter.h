@@ -1,5 +1,5 @@
 /* 
-    Header file for optimal filtration
+	Header file for optimal filtration
 */
 //==============================================//
 //---------- by Dmitry R. Gulevich -------------//
@@ -11,8 +11,8 @@
 
 typedef struct {
 	int n;
-    double a;
-    double *y;
+	double a;
+	double *y;
 	void *self; // pointer to private struct
 } OptFilterType;
 

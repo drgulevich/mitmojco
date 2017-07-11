@@ -93,8 +93,8 @@ int main () {
 	double *phi_old = malloc( (Nnodes+2) * sizeof(double) );
 	double *phi_new = malloc( (Nnodes+2) * sizeof(double) );
 
-    FILE *fout_phi;
-    fout_phi = fopen("breather.dat","w");
+	FILE *fout_phi;
+	fout_phi = fopen("breather.dat","w");
 
 	double dt2=dt*dt;
 	double r2=dt2/(dx*dx);
@@ -120,18 +120,18 @@ int main () {
 	for(t=0.,count=0; t<TMAX; t+=dt, count++) {
 
 		// Output phi into file
-	    if(count%countout==0) {
-        	for(i=1;i<=Nnodes;i++)
-        	    fprintf(fout_phi,"%.4f ",phi[i]);
-	        fprintf(fout_phi,"\n");
-	    }
+		if(count%countout==0) {
+			for(i=1;i<=Nnodes;i++)
+				fprintf(fout_phi,"%.4f ",phi[i]);
+			fprintf(fout_phi,"\n");
+		}
 
-      	mitmojco_update( ljj_tunnel_current ); // Update the tunnel current
+		mitmojco_update( ljj_tunnel_current ); // Update the tunnel current
 
 		// Calculate phi_new: internal nodes
-	    for(i=1;i<=Nnodes;i++)
-	        phi_new[i] = factor*( (r2+q)*phi[i-1] + 2.*(1-r2-q)*phi[i] + (r2+q)*phi[i+1] +
-	        		(-1+0.5* ljj_tunnel_current->alphaN*dt+2.*q)*phi_old[i] - q*phi_old[i-1] - q*phi_old[i+1] 
+		for(i=1;i<=Nnodes;i++)
+			phi_new[i] = factor*( (r2+q)*phi[i-1] + 2.*(1-r2-q)*phi[i] + (r2+q)*phi[i+1] +
+					(-1+0.5* ljj_tunnel_current->alphaN*dt+2.*q)*phi_old[i] - q*phi_old[i-1] - q*phi_old[i+1] 
 					+ dt2*( -ljj_tunnel_current->jbar[i]) );
 
 		// Open boundary conditions
@@ -139,8 +139,8 @@ int main () {
 		phi_new[Nnodes+1] = phi_new[Nnodes];
 			
 	   	// Update variables
-        memcpy(phi_old,phi,(Nnodes+2)*sizeof(double));
-        memcpy(phi,phi_new,(Nnodes+2)*sizeof(double));
+		memcpy(phi_old,phi,(Nnodes+2)*sizeof(double));
+		memcpy(phi,phi_new,(Nnodes+2)*sizeof(double));
 
 	} // end of t loop
 
@@ -157,19 +157,19 @@ int main () {
 
 	mitmojco_free(ljj_tunnel_current); 	// Clear memory allocated for the object
 
-    fclose(fout_phi);
+	fclose(fout_phi);
 
 	return 0;
 }
 
 
 void breather(double *phi) {
-    int i;
-    double x, u=0.2, gfactor=1.0/sqrt(1.0 + u*u ); 
-    for(i=1;i<=Nnodes;i++) {
-        x=xmin+i*dx;
-        phi[i] = 4.0*atan(cos( gfactor*u*0.0 )/(u*cosh( gfactor*x )));
-    }
+	int i;
+	double x, u=0.2, gfactor=1.0/sqrt(1.0 + u*u ); 
+	for(i=1;i<=Nnodes;i++) {
+		x=xmin+i*dx;
+		phi[i] = 4.0*atan(cos( gfactor*u*0.0 )/(u*cosh( gfactor*x )));
+	}
 	phi[0] = phi[1];
 	phi[Nnodes+1] = phi[Nnodes];
 }

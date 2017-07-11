@@ -86,19 +86,17 @@ int main (int argc, char* argv[]) {
 	int c;
 	opterr = 0;
 	while ((c = getopt (argc, argv, "f:")) != -1)
-	    switch (c)
-	    {
-	    case '?':
+		switch (c)
+		{
+		case '?':
 				if (isprint (optopt))
-		          fprintf (stderr, "Unknown option `-%c'.\n", optopt);
-		        else
-		          fprintf (stderr,
-		                   "Unknown option character `\\x%x'.\n",
-		                   optopt);
-		        return 1;
-	    default:
-		        abort ();
-	    }
+					fprintf (stderr, "Unknown option `-%c'.\n", optopt);
+				else
+					fprintf (stderr, "Unknown option character `\\x%x'.\n",	optopt);
+				return 1;
+		default:
+				abort ();
+		}
 
 	printf("#=================================================\n");
 	printf("#------------- Flux Flow Oscillator --------------\n");
@@ -168,7 +166,7 @@ void ffo_configure() {
 	// Loop over physical nodes (1 to Nnodes)
 	for(i=1;i<=Nnodes;i++) 
 	{ 
-	    double x=xmin + i*dx;
+		double x=xmin + i*dx;
 		if(x < -0.5*L0 + S0) {
 			width[i] = Wend + absWder*(x+0.5*L0);
 			dlogw[i] = absWder/width[i];
@@ -224,12 +222,12 @@ void ffo_info() {
 			conditions at the FFO ends is used to initialize phi and phi_old.
 **************************************************************************************************/
 void ffo_set_IC(double *phi, double *phi_old, double hext) {
-    int i;
-    for(i=0;i<Nnodes+2;i++) {
-        double x=xmin + i*dx;
-        phi[i] = -hext*x;
-        phi_old[i] = phi[i];
-    }
+	int i;
+	for(i=0;i<Nnodes+2;i++) {
+		double x=xmin + i*dx;
+		phi[i] = -hext*x;
+		phi_old[i] = phi[i];
+	}
 }
 
 
@@ -347,25 +345,25 @@ void ffo_explicit(double hext, double gamma_start, double gamma_finish, double g
 	
 		for(t=0.; t<TMAX; t+=dt) {
 		
-	      	mitmojco_update( ffo_tunnel_current ); // Update the tunnel current
+			mitmojco_update( ffo_tunnel_current ); // Update the tunnel current
 	
 			// Loop over physical nodes
-		    for(i=1;i<=Nnodes;i++)
-		        phi_new[i] = factor*( (r2+q-dlogw[i]*coeff1)*phi[i-1] + 2.*(1-r2-q)*phi[i] + (r2+q+dlogw[i]*coeff1)*phi[i+1] +
-		        		(-1+0.5*ffo_tunnel_current->alphaN*dt+2.*q)*phi_old[i] + (-q+dlogw[i]*coeff0)*phi_old[i-1] + (-q-dlogw[i]*coeff0)*phi_old[i+1] 
+			for(i=1;i<=Nnodes;i++)
+				phi_new[i] = factor*( (r2+q-dlogw[i]*coeff1)*phi[i-1] + 2.*(1-r2-q)*phi[i] + (r2+q+dlogw[i]*coeff1)*phi[i+1] +
+						(-1+0.5*ffo_tunnel_current->alphaN*dt+2.*q)*phi_old[i] + (-q+dlogw[i]*coeff0)*phi_old[i-1] + (-q-dlogw[i]*coeff0)*phi_old[i+1] 
 						+ dt2*(Gammaeff[i] - ffo_tunnel_current->jbar[i] + dlogw[i]*hext) );
 	
 			// Update two shadow nodes
 			phi_new[0] = phi_new[1] + dx*hext;
-			phi_new[Nnodes+1] = phi_new[Nnodes] - dx*hext;        
+			phi_new[Nnodes+1] = phi_new[Nnodes] - dx*hext;
 	
 			// Make a record to the filter object: 1st physical node at the injection end is chosen
-	        if(t > SETTLING_TIME)
+			if(t > SETTLING_TIME)
 				opt_filter_update(voltage_filter, phi_new[1]-phi_old[1]);
 	
 		   	// Update variables
-	        memcpy(phi_old,phi,(Nnodes+2)*sizeof(double));
-	        memcpy(phi,phi_new,(Nnodes+2)*sizeof(double));
+			memcpy(phi_old,phi,(Nnodes+2)*sizeof(double));
+			memcpy(phi,phi_new,(Nnodes+2)*sizeof(double));
 		}
 	
 

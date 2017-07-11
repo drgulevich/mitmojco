@@ -1,5 +1,5 @@
 /* 
-    Optimal filtration: implementation of the algorithm outlined by Eqs.(26)-(28) in Ref. 
+	Optimal filtration: implementation of the algorithm outlined by Eqs.(26)-(28) in Ref. 
    [1] A. A. Odintsov, V. K. Semenov and A. B. Zorin, IEEE Trans. Magn. 23, 763 (1987).
 */
 //==============================================//
@@ -18,7 +18,7 @@ typedef struct {
 
 	// private
 	int iter;
-    double inva;
+	double inva;
 
 } OptFilterType_Private;
 
@@ -35,8 +35,8 @@ OptFilterType* opt_filter_create(int n) {
 	s->PubInterface.n = n;
 	s->PubInterface.a = 1./(pow(2.,1./n)-1.); // optimum for sinusoidal signal
 	s->PubInterface.y = malloc( (n+1) * sizeof(double) );
-    s->inva = 1./(s->PubInterface.a);
-    s->iter = 0;
+	s->inva = 1./(s->PubInterface.a);
+	s->iter = 0;
 	return &(s->PubInterface);
 }
 
@@ -48,7 +48,7 @@ OptFilterType* opt_filter_create(int n) {
 **************************************************************************************************/
 void opt_filter_init(OptFilterType *object) {
 	OptFilterType_Private *s = object->self;
-    s->iter = 0;
+	s->iter = 0;
 }
 
 
@@ -61,7 +61,7 @@ void opt_filter_update(OptFilterType *object, double signal) {
 	OptFilterType_Private *s = object->self;
 
 	int m;
-    if((s->iter)==0) {
+	if((s->iter)==0) {
 		for(m=0;m<=(object->n);m++)
 			object->y[m] = signal;
 	}

@@ -1,5 +1,5 @@
 /* 
-    MiTMoJCo header file
+	MiTMoJCo header file
 */
 //==============================================//
 //---------- by Dmitry R. Gulevich -------------//

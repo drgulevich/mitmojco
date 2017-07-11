@@ -42,24 +42,19 @@ int main (int argc, char* argv[])
 	{
 
 	int c;
-
 	opterr = 0;
 	while ((c = getopt (argc, argv, "f:")) != -1)
-	    switch (c)
-	    {
-	    case '?':
-		        if (optopt == 'f')
-		          fprintf (stderr, "Option -%c requires an argument.\n", optopt);
-		        else if (isprint (optopt))
-		          fprintf (stderr, "Unknown option `-%c'.\n", optopt);
-		        else
-		          fprintf (stderr,
-		                   "Unknown option character `\\x%x'.\n",
-		                   optopt);
-		        return 1;
-	    default:
-		        abort ();
-	    }
+		switch (c)
+		{
+		case '?':
+				if (isprint (optopt))
+					fprintf (stderr, "Unknown option `-%c'.\n", optopt);
+				else
+					fprintf (stderr, "Unknown option character `\\x%x'.\n",	optopt);
+				return 1;
+		default:
+				abort ();
+		}
 
 	printf("#=================================================\n");
 	printf("#---- Example 2: Voltage-biased SIS junction -----\n");
@@ -84,16 +79,15 @@ int main (int argc, char* argv[])
 		return -1;
 	}
 	
-    printf("# Vac: %.3f\n", Vac);
-    printf("# omega: %.3f\n", omega);
-    printf("# Vdc_start: %.3f\n", Vdc_start);
-    printf("# Vdc_finish: %.3f\n", Vdc_finish);
-    printf("# Vdc_step: %.3f\n", Vdc_step);
+	printf("# Vac: %.3f\n", Vac);
+	printf("# omega: %.3f\n", omega);
+	printf("# Vdc_start: %.3f\n", Vdc_start);
+	printf("# Vdc_finish: %.3f\n", Vdc_finish);
+	printf("# Vdc_step: %.3f\n", Vdc_step);
 
 	omp_set_num_threads(OMP_NUM_THREADS);
 	printf("# OMP threads: %d\n",omp_get_max_threads());
 
-	    
 	sis_vbias(Vac, omega, Vdc_start, Vdc_finish, Vdc_step);
 	
 	return 0;
@@ -150,13 +144,13 @@ void sis_vbias(double Vac, double omega, double Vdc_start, double Vdc_finish, do
 	double phi0, Vdc, t;
 	
 	/* Set initial conditions. Josephson steps are absent for phi0=0. and present otherwise. */
-    phi0=0.;
+	phi0=0.;
 
 	/* Treating the upward (Vdc_start<Vdc_finish) and downward (Vdc_start>Vdc_finish) sweeps */
 	Vdc_step=fabs(Vdc_step);
 	Vdc_step = (Vdc_start<= Vdc_finish)?Vdc_step:(-Vdc_step);   	
 
-    printf("# phi0: %f\n",phi0);
+	printf("# phi0: %f\n",phi0);
 	printf("#----------- Starting the calculation ------------\n");
 	printf("# Column 1: Vdc\n");
 	printf("# Column 2: gamma\n");
@@ -178,13 +172,13 @@ void sis_vbias(double Vac, double omega, double Vdc_start, double Vdc_finish, do
 			double phidot = 2.*(Vdc+Vac*cos(omega*t));
 			phi = phi0 + 2.*Vdc*t + 2.*Vac*sin(omega*t)/omega;
 
-	      	mitmojco_update( sis_tunnel_current ); // Update the tunnel current
+			mitmojco_update( sis_tunnel_current ); // Update the tunnel current
 
 			/* Total tunnel current including the normal resistance term */
 			double gamma = sis_tunnel_current->jbar[0] + sis_tunnel_current->alphaN * phidot;
 
 			/* Make a record to the filter object */
-	        if(t > SETTLING_TIME)
+			if(t > SETTLING_TIME)
 				opt_filter_update(current_filter, gamma);			
 
 		} 

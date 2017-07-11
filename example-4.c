@@ -62,19 +62,17 @@ int main (int argc, char* argv[]) {
 	int c;
 	opterr = 0;
 	while ((c = getopt (argc, argv, "f:")) != -1)
-	    switch (c)
-	    {
-	    case '?':
+		switch (c)
+		{
+		case '?':
 				if (isprint (optopt))
-		          fprintf (stderr, "Unknown option `-%c'.\n", optopt);
-		        else
-		          fprintf (stderr,
-		                   "Unknown option character `\\x%x'.\n",
-		                   optopt);
-		        return 1;
-	    default:
-		        abort ();
-	    }
+					fprintf (stderr, "Unknown option `-%c'.\n", optopt);
+				else
+					fprintf (stderr, "Unknown option character `\\x%x'.\n",	optopt);
+				return 1;
+		default:
+				abort ();
+		}
 
 	double gamma_start, gamma_finish, gamma_step = 0.01;
 	
@@ -188,7 +186,7 @@ void ajj(double gamma_start, double gamma_finish, double gamma_step) {
 			((gamma > gamma_finish + 0.5*gamma_step) && (gamma_step<0)); gamma+=gamma_step) {
 
 		for(t=0.,count=0,started=false; t<TMAX; t+=dt, count++) {
-	        if(t > SETTLING_TIME) {
+			if(t > SETTLING_TIME) {
 				if(!started) {
 					i_fluxon = find_fluxon(phi);
 					x_initial = xmin + i_fluxon*dx;
@@ -197,20 +195,20 @@ void ajj(double gamma_start, double gamma_finish, double gamma_step) {
 				}
 			}
 
-	      	mitmojco_update( ajj_tunnel_current ); // Update the tunnel current
+			mitmojco_update( ajj_tunnel_current ); // Update the tunnel current
 
 			// Calculate phi_new: internal nodes
-		    for(i=1;i<=Nnodes;i++)
-		        phi_new[i] = factor*( (r2+q)*phi[i-1] + 2.*(1-r2-q)*phi[i] + (r2+q)*phi[i+1] +
-		        		(-1+0.5* ajj_tunnel_current->alphaN*dt+2.*q)*phi_old[i] - q*phi_old[i-1] - q*phi_old[i+1] 
+			for(i=1;i<=Nnodes;i++)
+				phi_new[i] = factor*( (r2+q)*phi[i-1] + 2.*(1-r2-q)*phi[i] + (r2+q)*phi[i+1] +
+						(-1+0.5* ajj_tunnel_current->alphaN*dt+2.*q)*phi_old[i] - q*phi_old[i-1] - q*phi_old[i+1] 
 						+ dt2*(gamma - ajj_tunnel_current->jbar[i]) );
 
 			phi_new[0] = phi_new[Nnodes] + 2.*M_PI*WINDING;
 			phi_new[Nnodes+1] = phi_new[1] - 2.*M_PI*WINDING;
 			
 		   	// Update variables
-	        memcpy(phi_old,phi,(Nnodes+2)*sizeof(double));
-	        memcpy(phi,phi_new,(Nnodes+2)*sizeof(double));
+			memcpy(phi_old,phi,(Nnodes+2)*sizeof(double));
+			memcpy(phi,phi_new,(Nnodes+2)*sizeof(double));
 
 		} // end of t loop
 
@@ -256,12 +254,12 @@ void ajj(double gamma_start, double gamma_finish, double gamma_step) {
             set phi to fluxon profile
 **************************************************************************************************/
 void fluxon(double *phi) {
-    int i;
-    double x; 
-    for(i=1;i<=Nnodes;i++) {
-        x=xmin+i*dx;
-        phi[i] = -WINDING*4.0*atan(exp(x));
-    }
+	int i;
+	double x; 
+	for(i=1;i<=Nnodes;i++) {
+		x=xmin+i*dx;
+		phi[i] = -WINDING*4.0*atan(exp(x));
+	}
 	phi[0] = phi[1];
 	phi[Nnodes+1] = phi[Nnodes];
 }
