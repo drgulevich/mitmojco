@@ -43,8 +43,7 @@ const double xmin=-0.5*L0-0.5*(L0/Nnodes); // position of the left shadow node
 
 
 /**************************************************************************************************
- NAME:	    main
- INPUT:     
+ NAME:      main
  FUNCTION:  display info and simulation of long Josephson junction
 **************************************************************************************************/
 int main () {
@@ -163,12 +162,17 @@ int main () {
 }
 
 
+/**************************************************************************************************
+ NAME:      breather
+ INPUT:     phi: pointer to superconducting phase difference array
+ FUNCTION:  set initial state for a breather
+**************************************************************************************************/
 void breather(double *phi) {
 	int i;
 	double x, u=0.2, gfactor=1.0/sqrt(1.0 + u*u ); 
 	for(i=1;i<=Nnodes;i++) {
 		x=xmin+i*dx;
-		phi[i] = 4.0*atan(cos( gfactor*u*0.0 )/(u*cosh( gfactor*x )));
+		phi[i] = 4.0*atan(1./(u*cosh( gfactor*x )));
 	}
 	phi[0] = phi[1];
 	phi[Nnodes+1] = phi[Nnodes];

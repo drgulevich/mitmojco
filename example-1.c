@@ -34,7 +34,7 @@
 void sis_cbias(double gamma_start, double gamma_finish, double gamma_step);
 
 /**************************************************************************************************
- NAME:	    main
+ NAME:      main
  INPUT:     command line arguments
  FUNCTION:  process command line arguments and execute simulation
 **************************************************************************************************/
@@ -100,15 +100,15 @@ int main (int argc, char* argv[]) {
 
 
 /**************************************************************************************************
- NAME:	    sis_cbias
+ NAME:      sis_cbias
  FUNCTION:  start simulation of SIS junction dynamics
- INPUTS: 
-			gamma_start: initial value of the bias current
-			gamma_finish: final value of the bias current
-			gamma_step: step size for the bias current
+ INPUTS:
+            gamma_start: initial value of the bias current
+            gamma_finish: final value of the bias current
+            gamma_step: step size for the bias current
  COMMENTS:
-			Both upward (gamma_start<gamma_finish) and downward (gamma_start>gamma_finish) current 
-			sweeps are possible. 
+            Both upward (gamma_start<gamma_finish) and downward (gamma_start>gamma_finish) current 
+            sweeps are possible. 
 **************************************************************************************************/
 void sis_cbias(double gamma_start, double gamma_finish, double gamma_step) {
 

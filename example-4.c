@@ -49,9 +49,9 @@ const double dt=DTREL*L0/Nnodes;
 
 
 /**************************************************************************************************
- NAME:	    main
+ NAME:      main
  FUNCTION:  process command line arguments and execute simulation
- INPUTS:     command line arguments
+ INPUTS:    command line arguments
 **************************************************************************************************/
 int main (int argc, char* argv[]) {
 
@@ -114,12 +114,12 @@ return 0;
 
 
 /**************************************************************************************************
- NAME:	    ajj
+ NAME:      ajj
  FUNCTION:  start simulation of AJJ
- INPUTS: 
-			gamma_start: initial value of the bias current
-			gamma_finish: final value of the bias current
-			gamma_step: step size for the bias current
+ INPUTS:
+            gamma_start: initial value of the bias current
+            gamma_finish: final value of the bias current
+            gamma_step: step size for the bias current
 **************************************************************************************************/
 void ajj(double gamma_start, double gamma_finish, double gamma_step) {
 
@@ -247,7 +247,7 @@ void ajj(double gamma_start, double gamma_finish, double gamma_step) {
 
 
 /**************************************************************************************************
- NAME:	    fluxon
+ NAME:      fluxon
  INPUTS:    
             phi: pointer to the superconducting phase difference array
  FUNCTION:  
@@ -265,7 +265,7 @@ void fluxon(double *phi) {
 }
 
 /**************************************************************************************************
- NAME:	    ajj_set
+ NAME:      ajj_set
  INPUTS:    
             phi: pointer to the superconducting phase difference array
             phi_old: pointer to the superconducting phase difference array on the previous step            

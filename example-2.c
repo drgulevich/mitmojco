@@ -34,7 +34,7 @@ AC driven voltage-biased SIS junction.
 void sis_vbias(double Vac, double omega, double V_start, double V_finish, double V_step);
 
 /**************************************************************************************************
- NAME:	    main
+ NAME:      main
  INPUT:     command line arguments
  FUNCTION:  process command line arguments and execute simulation
 **************************************************************************************************/
@@ -95,17 +95,17 @@ int main (int argc, char* argv[])
 
 
 /**************************************************************************************************
- NAME:	    sis_vbias
+ NAME:      sis_vbias
  FUNCTION:  start simulation of voltage-biased SIS junction
- INPUTS: 
- 			Vac: amplitude of the drive
- 			omega: angular frequency of the drive
-			Vdc_start: initial value of DC voltage
-			Vdc_finish: final value of DC voltage
-			Vdc_step: step size for DC voltage
+ INPUTS:
+            Vac: amplitude of the drive
+            omega: angular frequency of the drive
+            Vdc_start: initial value of DC voltage
+            Vdc_finish: final value of DC voltage
+            Vdc_step: step size for DC voltage
  COMMENTS:
-			Both upward (Vdc_start<Vdc_finish) and downward (Vdc_start>Vdc_finish) voltage
-			sweeps are possible. 
+            Both upward (Vdc_start<Vdc_finish) and downward (Vdc_start>Vdc_finish) voltage
+            sweeps are possible. 
 **************************************************************************************************/
 void sis_vbias(double Vac, double omega, double Vdc_start, double Vdc_finish, double Vdc_step) {
 

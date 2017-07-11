@@ -73,7 +73,7 @@ void ffo_info();
 
 
 /**************************************************************************************************
- NAME:	    main
+ NAME:      main
  INPUTS:    command line arguments
  FUNCTION:  process command line arguments and execute simulation
 **************************************************************************************************/
@@ -148,7 +148,7 @@ int main (int argc, char* argv[]) {
 
 
 /**************************************************************************************************
- NAME:	    ffo_configure
+ NAME:      ffo_configure
  FUNCTION:  initialize global variables which are constant throughout the simulation
 **************************************************************************************************/
 void ffo_configure() {
@@ -190,7 +190,7 @@ void ffo_configure() {
 
 
 /**************************************************************************************************
- NAME:	    ffo_info
+ NAME:      ffo_info
  FUNCTION:  print FFO model parameters
 **************************************************************************************************/
 void ffo_info() {
@@ -211,15 +211,15 @@ void ffo_info() {
 /**************************************************************************************************
  NAME:      ffo_set_IC
  FUNCTION:  set initial state of superconducting phase difference.
- INPUTS: 
-	        phi: superconducting phase difference 
-	        phi_old: superconducting phase difference for the previous step
-			hext: external magnetic field
+ INPUTS:
+            phi: superconducting phase difference 
+            phi_old: superconducting phase difference for the previous step
+            hext: external magnetic field
  COMMENTS:
-	        The initial state may be an approximate solution or a random guess. A realistic guess 
-			is desirable to minimize the transient dynamics	and guarantee establishing of the flux 
-			flow regime. In this implementation a linear function satisfying the boundary 
-			conditions at the FFO ends is used to initialize phi and phi_old.
+            The initial state may be an approximate solution or a random guess. A realistic guess 
+            is desirable to minimize the transient dynamics	and guarantee establishing of the flux 
+            flow regime. In this implementation a linear function satisfying the boundary 
+            conditions at the FFO ends is used to initialize phi and phi_old.
 **************************************************************************************************/
 void ffo_set_IC(double *phi, double *phi_old, double hext) {
 	int i;
@@ -232,14 +232,14 @@ void ffo_set_IC(double *phi, double *phi_old, double hext) {
 
 
 /**************************************************************************************************
- NAME:	    set_Gammaeff
+ NAME:      set_Gammaeff
  FUNCTION:  set the effective bias current at each physical node
  INPUTS: 
-			gamma: average bias current defined by Eq.(18) in arXiv:1704.03045.
-			Gammaeff: pointer to the effective bias current array defined by Eq.(17) in arXiv:1704.03045.
+            gamma: average bias current defined by Eq.(18) in arXiv:1704.03045.
+            Gammaeff: pointer to the effective bias current array defined by Eq.(17) in arXiv:1704.03045.
  COMMENTS:
-			The model assumes a homogeneos feed of the bias current to the FFO. The homogeneous feed
-			results in an inhomogeneous effective bias current for a FFO with variable width.
+            The model assumes a homogeneos feed of the bias current to the FFO. The homogeneous feed
+            results in an inhomogeneous effective bias current for a FFO with variable width.
 **************************************************************************************************/
 void set_Gammaeff(double gamma, double *Gammaeff) {
 	int i;
@@ -251,16 +251,16 @@ void set_Gammaeff(double gamma, double *Gammaeff) {
 
 
 /**************************************************************************************************
- NAME:	    ffo_explicit
+ NAME:      ffo_explicit
  FUNCTION:  start simulation of FFO dynamics using 2nd order central differences
- INPUTS: 
-			hext: magnetic field
-			gamma_start: initial value of the bias current
-			gamma_finish: final value of the bias current
-			gamma_step: step size for the bias current
+ INPUTS:
+            hext: magnetic field
+            gamma_start: initial value of the bias current
+            gamma_finish: final value of the bias current
+            gamma_step: step size for the bias current
  COMMENTS:
-			Both upward (gamma_start<gamma_finish) and downward (gamma_start>gamma_finish) current 
-			sweeps are possible. 
+            Both upward (gamma_start<gamma_finish) and downward (gamma_start>gamma_finish) current 
+            sweeps are possible. 
 **************************************************************************************************/
 void ffo_explicit(double hext, double gamma_start, double gamma_finish, double gamma_step) {
 
