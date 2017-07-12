@@ -23,12 +23,12 @@ AC driven voltage-biased SIS junction.
 
 /* Model Parameters */
 #define OMP_NUM_THREADS 1 //  number of OpenMP threads (use 1 for small Josephson contact)
-#define SETTLING_TIME 200. // time interval upon which voltage starts being recorded
-#define TMAX 500. // integration time
-#define DT 0.01 // time step
+#define SETTLING_TIME 200. // time interval upon which current starts being recorded
+#define TMAX 5000. // integration time
+#define DT 0.05 // time step
 #define N_OPT_FILTER 5 // optimum filtration level (1 for direct summation)
 #define AMP_FILE "amplitudes/BCS42_008.fit" // tunnel current amplitudes file
-#define A_SUPP 1.0 // pair current suppression
+#define A_SUPP 0.7 // pair current suppression
 #define KGAP 3.3 // normalized gap frequency (omega_g/omega_J)
 
 void sis_vbias(double Vac, double omega, double V_start, double V_finish, double V_step);
@@ -143,7 +143,7 @@ void sis_vbias(double Vac, double omega, double Vdc_start, double Vdc_finish, do
 
 	double phi0, Vdc, t;
 	
-	/* Set initial conditions. Josephson steps are absent for phi0=0. and present otherwise. */
+	/* Set initial conditions */
 	phi0=0.;
 
 	/* Treating the upward (Vdc_start<Vdc_finish) and downward (Vdc_start>Vdc_finish) sweeps */

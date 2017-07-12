@@ -33,8 +33,7 @@
 #define Nnodes 500
 #define DTREL 0.5
 #define BETA 0.0
-//#define DTOUT 0.5
-#define DTOUT 0.05
+#define DTOUT 0.5
 
 void breather(double *phi);
 

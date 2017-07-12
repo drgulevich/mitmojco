@@ -187,7 +187,7 @@ void sis_cbias(double gamma_start, double gamma_finish, double gamma_step) {
 			phi = phi_new;
 		}
 	
-		/* DC voltage in units eV/hbar*omega_J.	Factor 0.25 comes from the Josephson relation Vdc = 0.5*dphi/DT 
+		/* DC voltage in units hbar*omega_J/e.	Factor 0.25 comes from the Josephson relation Vdc = 0.5*dphi/DT 
 			and 2nd order discretization for th derivative,	dphi/dt = 0.5*(phi_new-phi_old)/dt */
 		Vdc=0.25*opt_filter_result(voltage_filter)/DT;
 	

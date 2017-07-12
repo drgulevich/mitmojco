@@ -102,7 +102,7 @@ int main (int argc, char* argv[]) {
 	printf("# OMP threads: %d\n",omp_get_max_threads());
 	
 	printf("# L0: %.4f\n", L0);
-//	printf("# Nnodes: %d\n", Nnodes);
+	printf("# Nnodes: %d\n", Nnodes);
 	printf("# BETA: %.4f\n", BETA);
 	printf("# SETTLING_TIME: %.2f\n", SETTLING_TIME);
 	printf("# TMAX: %.2f\n", TMAX);

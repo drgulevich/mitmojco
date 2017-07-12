@@ -48,12 +48,12 @@ const double Wend = 1.0/LAMBDA_J; // Width of the end
 const double DX = 0.5/LAMBDA_J; // Spatial discretization
 
 /* Model Parameters */
-#define OMP_NUM_THREADS 1 //  number of OpenMP threads (use 1 for small Josephson contact)
+#define OMP_NUM_THREADS 4 //  number of OpenMP threads (use 1 for small Josephson contact)
 #define SETTLING_TIME 200. // time interval upon which voltage starts being recorded
-#define TMAX 500. // integration time
+#define TMAX 1000. // integration time
 #define N_OPT_FILTER 5 // optimum filtration level (1 for direct summation)
 #define AMP_FILE "amplitudes/BCS42_008.fit" // tunnel current amplitudes file
-#define A_SUPP 1.0 // pair current suppression
+#define A_SUPP 0.7 // pair current suppression
 #define KGAP 3.3 // normalized gap frequency (omega_g/omega_J)
 #define DTREL 0.5 // ratio (dt/dx)
 #define BETA 0.02 // surface damping
@@ -98,9 +98,10 @@ int main (int argc, char* argv[]) {
 				abort ();
 		}
 
-	printf("#=================================================\n");
-	printf("#------------- Flux Flow Oscillator --------------\n");
-	printf("#=================================================\n");
+	printf("#===============================================\n");
+	printf("#------- Example 5: Flux Flow Oscillator -------\n");
+	printf("#===============================================\n");
+
 
 	double hext, gamma_start, gamma_finish, gamma_step;
 	
@@ -367,7 +368,7 @@ void ffo_explicit(double hext, double gamma_start, double gamma_finish, double g
 		}
 	
 
-		/* DC voltage in units eV/hbar*omega_J.	Factor 0.25 comes from the Josephson relation 
+		/* DC voltage in units hbar*omega_J/e.	Factor 0.25 comes from the Josephson relation 
 			Vdc = 0.5*dphi/dt, and 2nd order discretization for the derivative dphi/dt */
 		Vdc=0.25*opt_filter_result(voltage_filter)/dt;		
 	
