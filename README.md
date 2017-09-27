@@ -26,4 +26,5 @@ to compile all the provided examples.
 See the doc folder for the User Guide.
 
 **References**
+
 D. R. Gulevich, V. P. Koshelets, and F. V. Kusmartsev, Phys. Rev. B 96, 024215 (2017). https://arxiv.org/abs/1704.03045
