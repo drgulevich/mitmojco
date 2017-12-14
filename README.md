@@ -1,6 +1,6 @@
-# mitmojco
+# MiTMoJCo version 1.1
 
-MiTMoJCo (Microscopic Tunneling Model for Josephson Contacts) is C code designed for modeling superconducting
+MiTMoJCo (Microscopic Tunneling Model for Josephson Contacts) is C library designed for modeling superconducting
 Josephson junctions within the formalism of microscopic tunneling theory. The purpose of the code is to offer 
 implementation of a computationally demanding part of this calculation which is evaluation of the superconducting
 pair and quasiparticle tunnel currents. 
@@ -13,18 +13,24 @@ The source code contains 5 examples of modeling common cases of Josephson contac
 4. Fluxon in an Annular Josephson junction.
 5. Flux Flow Oscillator.
 
-To compile a particular example, type
+Installation on Linux:
+$ git clone https://github.com/drgulevich/mitmojco
+Modify CMakeLists.txt if needed (default installation paths are
+    /usr/local/lib for the library and /usr/local/include/mitmojco for headers)
+From mitmojco directory enter the (empty) build folder. From there, execute cmake, make and install the library files: 
+   $ cd build
+   $ cmake ..
+   $ make
+   $ sudo make install
 
-$ make example-#
+To check the installation by running one of the provided examples. To compile the first example
+type
 
-substituting # for the example number, or,
+$ make example-1
 
-$ make all
-
-to compile all the provided examples.
+Use similar command for the others.
 
 See the doc folder for the User Guide.
-
 
 **References**
 
