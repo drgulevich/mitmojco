@@ -14,13 +14,20 @@ The source code contains 5 examples of modeling common cases of Josephson contac
 5. Flux Flow Oscillator.
 
 Installation on Linux:
+
 $ git clone https://github.com/drgulevich/mitmojco
+
 Modify CMakeLists.txt if needed (default installation paths are
     /usr/local/lib for the library and /usr/local/include/mitmojco for headers)
+
 From mitmojco directory enter the (empty) build folder. From there, execute cmake, make and install the library files: 
+
    $ cd build
+
    $ cmake ..
+
    $ make
+
    $ sudo make install
 
 To check the installation by running one of the provided examples. To compile the first example
