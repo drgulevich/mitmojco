@@ -13,7 +13,7 @@ The source code contains 5 examples of modeling common cases of Josephson contac
 4. Fluxon in an Annular Josephson junction.
 5. Flux Flow Oscillator.
 
-Installation on Linux:
+**Installation**
 
 $ git clone https://github.com/drgulevich/mitmojco
 
@@ -22,18 +22,15 @@ Modify CMakeLists.txt if needed (default installation paths are
 
 From mitmojco directory enter the (empty) build folder. From there, execute cmake, make and install the library files: 
 
-   $ cd build
-
-   $ cmake ..
-
-   $ make
-
-   $ sudo make install
+    $ cd build
+    $ cmake ..
+    $ make
+    $ sudo make install
 
 To check the installation by running one of the provided examples. To compile the first example
 type
 
-$ make example-1
+    $ make example-1
 
 Use similar command for the others.
 
