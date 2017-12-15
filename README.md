@@ -8,10 +8,18 @@ pair and quasiparticle tunnel currents.
 The source code contains 5 examples of modeling common cases of Josephson contacts:
 
 1. Current-biased SIS junction.
+
 2. Voltage-biased SIS junction under ac drive.
+![Alt text](/examples/figures/example-2.png?raw=true "Example 2")
+
 3. Sine-Gordon breather in long Josephson junction.
+![Alt text](/examples/figures/example-3.png?raw=true "Example 3")
+
 4. Fluxon in an Annular Josephson junction.
+![Alt text](/examples/figures/example-4.png?raw=true "Example 4")
+
 5. Flux Flow Oscillator.
+![Alt text](/examples/figures/example-5.png?raw=true "Example 5")
 
 **Installation**
 
