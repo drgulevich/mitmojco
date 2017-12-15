@@ -1,1 +1,0 @@
-/usr/bin/cc  -fPIC -O3 -DNDEBUG  -shared -Wl,-soname,libmitmojco.so.1.1 -o libmitmojco.so.1.1 CMakeFiles/mitmojco.dir/src/mitmojco.c.o CMakeFiles/mitmojco.dir/src/opt_filter.c.o 
