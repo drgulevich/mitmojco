@@ -38,4 +38,6 @@ See the doc folder for the User Guide.
 
 **References**
 
-D. R. Gulevich, V. P. Koshelets, and F. V. Kusmartsev, Phys. Rev. B 96, 024215 (2017). https://arxiv.org/abs/1704.03045
+1. MiTMoJCo 1.1 User Guide: https://www.researchgate.net/publication/318380494_User_Guide_for_MiTMoJCo_Microscopic_Tunneling_Model_for_Josephson_Contacts.
+
+2. Original paper using MiMToJCo: D. R. Gulevich, V. P. Koshelets, and F. V. Kusmartsev, Phys. Rev. B 96, 024215 (2017); https://arxiv.org/abs/1704.03045.
