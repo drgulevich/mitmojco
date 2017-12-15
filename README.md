@@ -20,8 +20,9 @@ The source code contains 5 examples of modeling common cases of Josephson contac
 Modify CMakeLists.txt to suit your needs. Default installation paths are set in CMakeLists.txt to
     /usr/local/lib for the shared library and /usr/local/include/mitmojco for the headers.
 
-From mitmojco directory enter the (empty) build folder and execute cmake, make and the installation procedure: 
+In the mitmojco directory create and enter the build/ folder. Then execute cmake, make and the installation procedure: 
 
+    $ mkdir build
     $ cd build
     $ cmake ..
     $ make
