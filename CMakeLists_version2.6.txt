@@ -1,5 +1,8 @@
-cmake_minimum_required(VERSION 3.5.1)
-project(mitmojco VERSION 1.1)
+###
+# This CMakeLists.txt can be used on older Cmake versions (tested on v2.6)
+###
+cmake_minimum_required(VERSION 2.6)
+project(mitmojco)
 set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_C_FLAGS_RELEASE "-Ofast -march=native -fopenmp")
 set(CMAKE_C_FLAGS_DEBUG "-g -Wall -fopenmp")
@@ -20,7 +23,6 @@ set(SOURCES src/mitmojco.c src/opt_filter.c)
 add_library(mitmojco SHARED ${SOURCES})
 
 set_target_properties(mitmojco PROPERTIES 
-    VERSION ${PROJECT_VERSION}
     POSITION_INDEPENDENT_CODE ON
     PUBLIC_HEADER "include/mitmojco/mitmojco.h;include/mitmojco/opt_filter.h")
 
