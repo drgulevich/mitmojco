@@ -20,7 +20,7 @@ typedef struct {
 	double Rejptilde0; // normalized critical current
 	double alphaN; // damping due to the normal resistance
 	double *jbar; // pointer to the reduced current density
-	void *self; // pointer to private struct
+	void *self; // pointer to private struct (internal use only)
 } TunnelCurrentType;
 
 /* methods */
