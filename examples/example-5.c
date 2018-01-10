@@ -23,7 +23,7 @@ in arXiv:1704.03045, without load. Geometrical parameters are defined as follows
 
 At hext>0 and gamma>0 fluxons enter through the injection end (at x = -L0/2) and leave through the radiation 
 end (at x = L0/2). The quasi-one dimensional model (Eq.15 in arXiv:1704.03045) is discretized in space in 
-(Nnodes+2) nodes: 1 to Nnodes are the physics nodes through which currents are assumed to flow, and two 
+(Nnodes+2) nodes: 1 to Nnodes are the physical nodes through which currents are assumed to flow, and two 
 shadow nodes 0 and Nnodes+1 for treatment of the boundary conditions. The injection end (x = -L0/2) is 
 half-step between the nodes 0 and 1 and the radiation end (x = L0/2) is half-step between the nodes Nnodes 
 and Nnodes+1.*/

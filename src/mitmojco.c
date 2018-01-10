@@ -8,7 +8,6 @@
 //==============================================//
 #include <stdio.h>
 #include <stdlib.h> // malloc
-#include <complex.h> // complex numbers
 #include <math.h> // sqrt, sin, cos
 #include <omp.h>
 #include "mitmojco/mitmojco.h"
@@ -19,21 +18,12 @@ typedef struct {
 	TunnelCurrentType PubInterface;
 
 	// private
-	int Nnodes;
-	int Nskip;
-	int *skipinds;
-	int Nexps;
 	double kgap_over_Rejptilde0;
-	double *sin05phi_old;
-	double *cos05phi_old;
 	double complex *C;
 	double complex *D;
 	double complex *cexp_z;
 	double complex *alpha0;
 	double complex *alpha1;
-	double complex *F;
-	double complex *G;
-
 	double **phi_ptrs;
 	double **jbar_ptrs;
 
@@ -116,13 +106,22 @@ TunnelCurrentType* mitmojco_create(const char *filename, double a_supp, double k
 		s->PubInterface.error = true;
 	}
 	else {
+		s->PubInterface.filename = filename;
+		s->PubInterface.a_supp=a_supp;
+		s->PubInterface.kgap=kgap;
+		s->PubInterface.dt=dt;
+		s->PubInterface.Ntotal=Ntotal;
+		s->PubInterface.phi=phi;
+		s->PubInterface.Nskip=Nskip;
+		s->PubInterface.skipinds=skipinds;
+
 		// Number of fitting exponents
-		s->Nexps = Nvalues/6;
+		s->PubInterface.Nexps = Nvalues/6;
 
 		// Declare fit parameters
-		double complex *p = malloc( s->Nexps * sizeof(double complex) );
-		double complex *A = malloc( s->Nexps * sizeof(double complex) );
-		double complex *B = malloc( s->Nexps * sizeof(double complex) );
+		double complex *p = malloc( s->PubInterface.Nexps * sizeof(double complex) );
+		double complex *A = malloc( s->PubInterface.Nexps * sizeof(double complex) );
+		double complex *B = malloc( s->PubInterface.Nexps * sizeof(double complex) );
 
 		// Load tunnel current amplitudes
 		mitmojco_loadamps(filename, p, A, B);
@@ -149,21 +148,21 @@ TunnelCurrentType* mitmojco_create(const char *filename, double a_supp, double k
 				count++;	
 			}
 		}
-		s->Nnodes = count; // Number of physical nodes
+		s->PubInterface.Nnodes = count; // Number of physical nodes (Ntotal-Nskip)
 		s->PubInterface.error = false;
 		s->PubInterface.self = s; // Keep record of self pointer
-		s->sin05phi_old = malloc( s->Nnodes * sizeof(double) );
-		s->cos05phi_old = malloc( s->Nnodes * sizeof(double) );
-		s->C = malloc( s->Nexps * sizeof(double complex) );
-		s->D = malloc( s->Nexps * sizeof(double complex) );
-		s->cexp_z = malloc( s->Nexps * sizeof(double complex) );
-		s->alpha0 = malloc( s->Nexps * sizeof(double complex) );
-		s->alpha1 = malloc( s->Nexps * sizeof(double complex) );
-		s->F = malloc( s->Nnodes * s->Nexps * sizeof(double complex) );
-		s->G = malloc( s->Nnodes * s->Nexps * sizeof(double complex) );
+		s->PubInterface.memstate.sin05phi_old = malloc( s->PubInterface.Nnodes * sizeof(double) );
+		s->PubInterface.memstate.cos05phi_old = malloc( s->PubInterface.Nnodes * sizeof(double) );
+		s->C = malloc( s->PubInterface.Nexps * sizeof(double complex) );
+		s->D = malloc( s->PubInterface.Nexps * sizeof(double complex) );
+		s->cexp_z = malloc( s->PubInterface.Nexps * sizeof(double complex) );
+		s->alpha0 = malloc( s->PubInterface.Nexps * sizeof(double complex) );
+		s->alpha1 = malloc( s->PubInterface.Nexps * sizeof(double complex) );
+		s->PubInterface.memstate.F = malloc( s->PubInterface.Nnodes * s->PubInterface.Nexps * sizeof(double complex) );
+		s->PubInterface.memstate.G = malloc( s->PubInterface.Nnodes * s->PubInterface.Nexps * sizeof(double complex) );
 
 		int n;
-		for(n=0;n<(s->Nexps);n++) {
+		for(n=0;n<(s->PubInterface.Nexps);n++) {
 			double complex z=p[n]*kgap*dt;
 			double complex ez=cexp(z);
 			s->cexp_z[n] = ez;
@@ -174,7 +173,7 @@ TunnelCurrentType* mitmojco_create(const char *filename, double a_supp, double k
 		}
 
 		double Rejptilde0=0.;
-		for(n=0;n<(s->Nexps);n++)
+		for(n=0;n<(s->PubInterface.Nexps);n++)
 			Rejptilde0 -= creal(A[n]/p[n]);
 		Rejptilde0 *= a_supp;
 	
@@ -187,7 +186,7 @@ TunnelCurrentType* mitmojco_create(const char *filename, double a_supp, double k
 		printf("# 	Pair current suppression (a_supp): %.2f\n", a_supp);
 		printf("# 	Rejp~(0): %.5f\n", s->PubInterface.Rejptilde0);
 		printf("# 	alphaN: %.5f\n", s->PubInterface.alphaN);
-		printf("# 	Number of fitting exponents (Nexps): %d\n", s->Nexps);
+		printf("# 	Number of fitting exponents (Nexps): %d\n", s->PubInterface.Nexps);
 
 		free(p);
 		free(A);
@@ -210,15 +209,15 @@ void mitmojco_init( TunnelCurrentType *object ) {
 	TunnelCurrentType_Private *s = object->self;
 
 	int i, n;
-	int Nexps = s->Nexps;
-	for(i=0;i<(s->Nnodes);i++) { 
+	int Nexps = s->PubInterface.Nexps;
+	for(i=0;i<(s->PubInterface.Nnodes);i++) { 
 		double sin05phi_i=sin( 0.5*(*s->phi_ptrs[i]) );
 		double cos05phi_i=cos( 0.5*(*s->phi_ptrs[i]) );
-		s->sin05phi_old[i]=sin05phi_i;
-		s->cos05phi_old[i]=cos05phi_i;
+		s->PubInterface.memstate.sin05phi_old[i]=sin05phi_i;
+		s->PubInterface.memstate.cos05phi_old[i]=cos05phi_i;
 		for(n=0;n<Nexps;n++) {
-			s->F[i*Nexps+n] = cos05phi_i + 0.*I;
-			s->G[i*Nexps+n] = sin05phi_i + 0.*I;
+			s->PubInterface.memstate.F[i*Nexps+n] = cos05phi_i + 0.*I;
+			s->PubInterface.memstate.G[i*Nexps+n] = sin05phi_i + 0.*I;
 		}
 	}
 }
@@ -235,24 +234,26 @@ void mitmojco_update( TunnelCurrentType *object ) {
 	TunnelCurrentType_Private *s = object->self;
 
 	int i, n;
-	int Nexps = s->Nexps;
+	int Nexps = s->PubInterface.Nexps;
 	#pragma omp parallel default(none) private(i,n) shared(s, Nexps)
 	{
 		#pragma omp for schedule(static)
-		for(i=0;i<(s->Nnodes);i++) {
+		for(i=0;i<(s->PubInterface.Nnodes);i++) {
 			double ReCFs=0.;
 			double ReDGs=0.;
 			double sin05phi_i = sin( 0.5*(*s->phi_ptrs[i]) );
 			double cos05phi_i = cos( 0.5*(*s->phi_ptrs[i]) );
 			for(n=0;n<Nexps;n++) {
-				s->F[i*Nexps+n] = s->cexp_z[n]*s->F[i*Nexps+n] + s->alpha0[n]*s->cos05phi_old[i] + s->alpha1[n]*cos05phi_i;
-				s->G[i*Nexps+n] = s->cexp_z[n]*s->G[i*Nexps+n] + s->alpha0[n]*s->sin05phi_old[i] + s->alpha1[n]*sin05phi_i;
-				ReCFs += creal( s->C[n] * s->F[i*Nexps+n] );
-				ReDGs += creal( s->D[n] * s->G[i*Nexps+n] );
+				s->PubInterface.memstate.F[i*Nexps+n] = s->cexp_z[n]*s->PubInterface.memstate.F[i*Nexps+n] 
+					+ s->alpha0[n]*s->PubInterface.memstate.cos05phi_old[i] + s->alpha1[n]*cos05phi_i;
+				s->PubInterface.memstate.G[i*Nexps+n] = s->cexp_z[n]*s->PubInterface.memstate.G[i*Nexps+n] 
+					+ s->alpha0[n]*s->PubInterface.memstate.sin05phi_old[i] + s->alpha1[n]*sin05phi_i;
+				ReCFs += creal( s->C[n] * s->PubInterface.memstate.F[i*Nexps+n] );
+				ReDGs += creal( s->D[n] * s->PubInterface.memstate.G[i*Nexps+n] );
 			}
 			(*s->jbar_ptrs[i]) = s->kgap_over_Rejptilde0*( sin05phi_i*ReCFs + cos05phi_i*ReDGs );
-			s->sin05phi_old[i]=sin05phi_i;
-			s->cos05phi_old[i]=cos05phi_i;
+			s->PubInterface.memstate.sin05phi_old[i] = sin05phi_i;
+			s->PubInterface.memstate.cos05phi_old[i] = cos05phi_i;
 		}
 	}
 }
@@ -267,14 +268,14 @@ void mitmojco_free( TunnelCurrentType *object ) {
 	TunnelCurrentType_Private *s = object->self;
 
 	free(s->PubInterface.jbar);
-	free(s->sin05phi_old);
-	free(s->cos05phi_old);
+	free(s->PubInterface.memstate.sin05phi_old);
+	free(s->PubInterface.memstate.cos05phi_old);
 	free(s->C);
 	free(s->D);
 	free(s->cexp_z);
 	free(s->alpha0);
 	free(s->alpha1);
-	free(s->F);
-	free(s->G);
+	free(s->PubInterface.memstate.F);
+	free(s->PubInterface.memstate.G);
 	free(s);
 }
