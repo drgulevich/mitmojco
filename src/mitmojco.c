@@ -3,7 +3,7 @@
 */
 //==============================================//
 //---------- by Dmitry R. Gulevich -------------//
-//------ d.r.gulevich@metalab.ifmo.ru ----------//
+//--------- drgulevich@corp.ifmo.ru ------------//
 //--- ITMO University, St Petersburg, Russia ---//
 //==============================================//
 #include <stdio.h>
@@ -87,7 +87,7 @@ void mitmojco_loadamps(const char *filename, double complex *p, double complex *
 			kgap: normalized gap frequency
 			dt: integration time step
 			Ntotal: size of the array phi
-			phi: pointer to the superconducting difference
+			phi: pointer to the superconducting phase difference
 			Nskip: number of shadow nodes to skip
 			skipinds: pointer to the array of integers to skip
  RETURNS:   tunnel current amplitude object (pointer to TunnelCurrentType struct)

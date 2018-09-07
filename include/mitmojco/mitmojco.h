@@ -3,7 +3,7 @@
 */
 //==============================================//
 //---------- by Dmitry R. Gulevich -------------//
-//------ d.r.gulevich@metalab.ifmo.ru ----------//
+//--------- drgulevich@corp.ifmo.ru ------------//
 //--- ITMO University, St Petersburg, Russia ---//
 //==============================================//
 #ifndef MITMOJCO_HEADER
@@ -24,14 +24,14 @@ typedef struct {
 } MemState; // struct containing previous evolution information 
 
 typedef struct {
-	const char *filename;
-	double a_supp;
-	double kgap;
-	double dt;
-	int Ntotal;
-	double *phi;
-	int Nskip;
-	int *skipinds;
+	const char *filename; // pointer to tunnel current amplitude file name
+	double a_supp; // pair current suppression parameter
+	double kgap; // normalized gap frequency
+	double dt; // integration time step
+	int Ntotal; // size of the array phi
+	double *phi; // pointer to the superconducting phase difference
+	int Nskip; // number of shadow nodes to skip
+	int *skipinds; // pointer to the array of integers to skip
 	int Nnodes; // number of active nodes, Nnodes = Ntotal-Nskip
 	int Nexps; // number of exponentials used in fitting
 	MemState memstate; // struct containing previous evolution information 

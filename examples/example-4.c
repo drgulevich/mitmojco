@@ -4,7 +4,7 @@
 */
 //==============================================//
 //---------- by Dmitry R. Gulevich -------------//
-//------ d.r.gulevich@metalab.ifmo.ru ----------//
+//--------- drgulevich@corp.ifmo.ru ------------//
 //--- ITMO University, St Petersburg, Russia ---//
 //==============================================//
 /* MODEL DESCRIPTION:
