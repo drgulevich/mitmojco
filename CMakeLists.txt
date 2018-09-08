@@ -1,6 +1,3 @@
-###
-# This CMakeLists.txt can be used on older Cmake versions (tested on v2.6)
-###
 cmake_minimum_required(VERSION 2.6)
 project(mitmojco)
 set(CMAKE_BUILD_TYPE Release)
