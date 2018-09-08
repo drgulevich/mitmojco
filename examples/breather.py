@@ -1,16 +1,16 @@
-#!/usr/bin/env python3.4
-from pylab import *
+#!/usr/bin/env python3
+import numpy as np
+import matplotlib.pyplot as plt
 from matplotlib import animation
 
-data = loadtxt("breather.dat")
+data = np.loadtxt("breather.dat")
 frames=data.shape[0]
 N=data.shape[1]
 L0=40. # normalized length of the Josephson junction
-x=linspace(-L0/2.,L0/2.,N)
+x=np.linspace(-L0/2.,L0/2.,N)
 print('L0:',L0)
 
-rc('font', family='serif')
-rc('font', size='14')
+plt.rc('font', family='serif', size='14')
 fig, ax = plt.subplots(figsize=(8,6))
 ax.set_xlim([-L0/2.,L0/2.])
 ax.set_ylim([-7,7])
@@ -36,4 +36,4 @@ def animate(i):
 anim = animation.FuncAnimation(fig, animate, init_func=init, frames=frames, interval=100, blit=True, repeat=False)
 
 #ax.grid()
-show()
+plt.show()
