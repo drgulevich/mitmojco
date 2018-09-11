@@ -28,7 +28,7 @@
 #define OMP_NUM_THREADS 4 //  number of OpenMP threads
 #define SETTLING_TIME 200. // time interval upon which voltage starts being recorded
 #define TMAX 1000. // integration time
-#define AMP_FILE "../amplitudes/BCS42_008.fit" // tunnel current amplitudes file
+#define AMP_FILE "../amplitudes/NbNb_4K2_008.fit" // tunnel current amplitudes file
 #define A_SUPP 0.7 // pair current suppression
 #define KGAP 3.3 // normalized gap frequency (omega_g/omega_J)
 #define WINDING 1

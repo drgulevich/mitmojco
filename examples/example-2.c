@@ -27,7 +27,7 @@ AC driven voltage-biased SIS junction.
 #define TMAX 5000. // integration time
 #define DT 0.05 // time step
 #define N_OPT_FILTER 5 // optimum filtration level (1 for direct summation)
-#define AMP_FILE "../amplitudes/BCS42_008.fit" // tunnel current amplitudes file
+#define AMP_FILE "../amplitudes/NbNb_4K2_008.fit" // tunnel current amplitudes file
 #define A_SUPP 0.7 // pair current suppression
 #define KGAP 3.3 // normalized gap frequency (omega_g/omega_J)
 
