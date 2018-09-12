@@ -193,7 +193,7 @@ def tca_smbcs(T, Delta1, Delta2, dsm):
 
     ### The smoothing procedure is different for symmetric junction (d1=d2) due 
     ### to the difference d2-d1 appearing in the denominator: the limit d2-d1->0 is 
-    ### taken analytically to avoid numerical errors.
+    ### taken analytically to avoid numerical errors. 
     if(d21<0.001):
         symmetric_junction=True
         print('# Symmetric junction assumed (Delta1=Delta2)')
