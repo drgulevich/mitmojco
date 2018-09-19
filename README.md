@@ -7,25 +7,25 @@ pair and quasiparticle tunnel currents.
 
 **Description of source files**
 
-``amplitudes/``: folder containing a library of pre-calculated fits of tunnel current amplitudes for common types of Nb and NbN junctions
+``amplitudes/``: folder containing a library of pre-calculated fits of tunnel current amplitudes for common types of Nb and NbN junctions.
 
-``doc/``: folder containing documentation
+``doc/``: folder containing documentation.
 
-``examples/``: folder containing examples of using MiTMoJCo C library
+``examples/``: folder containing examples of using MiTMoJCo C library.
 
-``include/``: folder with C headers ``mitmojco/mitmojco.h`` and ``mitmojco/opt_filter.h``
+``include/``: folder with C headers ``mitmojco/mitmojco.h`` and ``mitmojco/opt_filter.h``.
 
-``src/``: folder with the C source code ``mitmojco.c`` and supplementary optimum filtration routine ``opt_filter.c``
+``src/``: folder with the C source code ``mitmojco.c`` and supplementary optimum filtration routine ``opt_filter.c``.
 
-``CMakeLists.txt``: input to CMake at installation
+``CMakeLists.txt``: input to CMake at installation.
 
-``LICENSE``: GNU General Public License information
+``LICENSE``: GNU General Public License information.
 
-``README.md``: general information about the code
+``README.md``: general information about the code.
 
-``amplitudes.ipynb``: Jupyter notebook demonstrating the use of ``mitmojco`` Python module
+``amplitudes.ipynb``: Jupyter notebook demonstrating the use of ``mitmojco`` Python module.
 
-``module.py``: supplementary Python module for working with tunnel current amplitudes
+``module.py``: supplementary Python module for calculation of tunnel current amplitudes (TCAs) from the BCS expressions, smoothing Riedel peaks and creation of custom fits of TCAs by a sum of complex exponentials used in the C library.  
 
 **Examples**
 
