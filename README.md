@@ -1,4 +1,4 @@
-# MiTMoJCo version 1.1
+# MiTMoJCo version 1.2
 
 MiTMoJCo (Microscopic Tunneling Model for Josephson Contacts) is C library designed for modeling superconducting
 Josephson junctions within the formalism of microscopic tunneling theory. The purpose of the code is to offer 
