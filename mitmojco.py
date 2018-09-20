@@ -7,6 +7,7 @@
 import numpy as np
 from scipy.integrate import quad
 from scipy.optimize import leastsq
+from functools import partial
 import time
 
 e0 = 1.6e-19 # electron charge (SI units)
@@ -264,7 +265,7 @@ def tca_smbcs(T, Delta1, Delta2, dsm):
 #     maxNterms # number of complex exponentials
 #     thr # ratio of absolute and relative tolerances (equal to $\tau_a/\tau_r$ in Ref.[2])
 # Output:
-#     cpars
+#     (p,A,B)
 #     Jpair_model
 #     Jqp_model
 # References:
@@ -282,8 +283,6 @@ def new_fit(x, Jpair_data, Jqp_data, maxNterms, thr):
 
     Nterms = len(p)
     assert len(A)==Nterms and len(B)==Nterms
-    zeta=invrep(p.real)+1j*p.imag
-    cpars=np.concatenate((zeta,A,B))
 
     start_time = time.time()
 
@@ -293,20 +292,15 @@ def new_fit(x, Jpair_data, Jqp_data, maxNterms, thr):
         A = np.append(A,0.+0.j)
         B = np.append(B,0.+0.j)
     
-        zeta=invrep(p.real)+1j*p.imag
-        cpars=np.concatenate((zeta,A,B))
         Nterms += 1
         print('# Nterms = %d with new term at frequency %f. Calculating...' % (Nterms,xnew))
 
-        param_list = leastsq(residual, realimag(cpars), args=(x, Jpair_data, Jqp_data, thr), ftol=1.e-3)[0] # least square method
-        cpars=ccombine(param_list)
+        param_list = leastsq(residual, to_flat((p,A,B)), args=(x, Jpair_data, Jqp_data, thr), ftol=1.e-3)[0] # least square method
 
-        p=rep(cpars[:Nterms].real)+1j*cpars[:Nterms].imag
-        A=cpars[Nterms:2*Nterms]
-        B=cpars[2*Nterms:3*Nterms]
+        (p,A,B) = from_flat(param_list)
 
-        Jpair_model = modelJpair(cpars, x)
-        Jqp_model = modelJqp(cpars, x)
+        Jpair_model = modelJpair((p,A,B), x)
+        Jqp_model = modelJqp((p,A,B), x)
         ReJpair_diff = Drel(Jpair_model.real, Jpair_data.real, thr)
         ImJpair_diff = Drel(Jpair_model.imag, Jpair_data.imag, thr)
         ReJqp_diff = Drel(Jqp_model.real, Jqp_data.real, thr)
@@ -314,85 +308,79 @@ def new_fit(x, Jpair_data, Jqp_data, maxNterms, thr):
         ind_max = np.argmax( np.concatenate((ReJpair_diff,ImJpair_diff,ReJqp_diff,ImJqp_diff)) )
         xnew = x[ind_max%len(x)]
 
-        display(cpars)
+        display((p,A,B))
         print()
 
     finish_time=time.time()
 
     print('# Timing: %.f' % (time.time()-start_time),' seconds')
 
-    return (cpars, Jpair_model, Jqp_model)
+    return ((p,A,B), Jpair_model, Jqp_model)
 
 
 ###-----------------------------------------------
 ### Supplementary routines for new_fit
 ###-----------------------------------------------
 
-def display(cpars):
-    Nterms = int(len(cpars)/3)
-    print("p=",repr(np.vstack(rep(cpars[:Nterms].real)+1j*cpars[:Nterms].imag).flatten()))
-    print("A=",repr(cpars[Nterms:2*Nterms]))
-    print("B=",repr(cpars[2*Nterms:3*Nterms]))  
+def display(pAB):
+    (p,A,B) = pAB
+    print("p=",repr(p))
+    print("A=",repr(A))
+    print("B=",repr(B))  
 
 # Relative difference with threshold thr
 def Drel(X,Xref,thr):
     return np.abs(X-Xref)/np.maximum(thr,np.abs(Xref))
 
-### Mapping of (-inf,+inf) to Re[p]<0
-#@np.vectorize
-def rep(zeta):
-    return -abs(zeta)
-#    return -zeta*zeta
-#    return -np.exp(zeta)
-
-#@np.vectorize
-def invrep(xi):
-    return -xi
-#    return np.sqrt(-xi)  
-#    return np.log(-xi)
-
-
 ### Jpair model
-def modelJpair(cpars, w):
-    Nterms = int(len(cpars)/3)
-    zeta = cpars[0:Nterms].real
-    eta = cpars[0:Nterms].imag
-    rea = cpars[Nterms:2*Nterms].real
-    ima = cpars[Nterms:2*Nterms].imag
+def modelJpair(pAB, w):
+    (p,A,B) = pAB
+    rep = p.real
+    imp = p.imag
+    rea = A.real
+    ima = A.imag
+
     sum=0.0;
-    for n in range(Nterms):         
+    for n in range(len(p)):         
         ### Differs from modelJqp by w->(-w)
-        sum-=(rea[n]*rep(zeta[n])+ima[n]*eta[n]-1j*w*rea[n])/(rep(zeta[n])*rep(zeta[n])+eta[n]*eta[n]-w*w-2.*1j*w*rep(zeta[n]))
+        sum-=(-rea[n]*abs(rep[n])+ima[n]*imp[n]-1j*w*rea[n])/(rep[n]**2 + imp[n]**2 - w**2 + 2.*1j*w*abs(rep[n]))
+
     return sum
 
 ### Jqp model
-def modelJqp(cpars, w):
-    Nterms = int(len(cpars)/3)
-    zeta = cpars[0:Nterms].real
-    eta = cpars[0:Nterms].imag
-    reb = cpars[2*Nterms:3*Nterms].real
-    imb = cpars[2*Nterms:3*Nterms].imag
+def modelJqp(pAB, w):
+    (p,A,B) = pAB
+    rep = p.real
+    imp = p.imag
+    reb = B.real
+    imb = B.imag
+
     sum=0.0;
-    for n in range(Nterms):
-        sum-=(reb[n]*rep(zeta[n])+imb[n]*eta[n]+1j*w*reb[n])/(rep(zeta[n])*rep(zeta[n])+eta[n]*eta[n]-w*w+2.*1j*w*rep(zeta[n]))
+    for n in range(len(p)):
+        sum-=(-reb[n]*abs(rep[n])+imb[n]*imp[n]+1j*w*reb[n])/(rep[n]**2 + imp[n]**2 - w**2 - 2.*1j*w*abs(rep[n]))
+
     return 1j*w + sum
 
-### flatten complex array
-def realimag(carray):
-    return np.array([(x.real, x.imag) for x in carray]).flatten()
+def to_flat(pAB):
+    (p,A,B) = pAB
+    pflat = np.stack((p.real,p.imag),axis=1).flatten()
+    Aflat = np.stack((A.real,A.imag),axis=1).flatten()
+    Bflat = np.stack((B.real,B.imag),axis=1).flatten()
+    return np.concatenate((pflat,Aflat,Bflat))
 
-### form complex array
-def ccombine(param_list):
-    cpars = np.zeros(round(0.5*len(param_list)), dtype = complex)
-    cpars.real = param_list[0:len(param_list):2]
-    cpars.imag = param_list[1:len(param_list):2]
-    return cpars
+def from_flat(param_list):
+    Nterms = int(len(param_list)/6)
+    p = -np.abs(param_list[0:2*Nterms:2]) + 1j*param_list[1:2*Nterms:2] # ensure Re[p] < 0
+    A = param_list[2*Nterms:4*Nterms:2] + 1j*param_list[1+2*Nterms:4*Nterms:2]
+    B = param_list[4*Nterms:6*Nterms:2] + 1j*param_list[1+4*Nterms:6*Nterms:2]
+    return (p,A,B)
 
 # Residual for least square optimization
 def residual(param_list, x, Jpair_data, Jqp_data, thr):
-    cpars = ccombine(param_list)
-    Jpair_model = modelJpair(cpars, x)
-    Jqp_model = modelJqp(cpars, x)
+
+    (p,A,B) = from_flat(param_list)
+    Jpair_model = modelJpair((p,A,B), x)
+    Jqp_model = modelJqp((p,A,B), x)
 
     ReJpair_diff = Drel(Jpair_model.real, Jpair_data.real, thr)
     ImJpair_diff = Drel(Jpair_model.imag, Jpair_data.imag, thr)
@@ -402,11 +390,35 @@ def residual(param_list, x, Jpair_data, Jqp_data, thr):
     return np.concatenate((ReJpair_diff,ImJpair_diff,ReJqp_diff,ImJqp_diff))
 
 # Save fit parameters p,A,B to file
-def parsave(cpars,filename):
-    Nterms = int(len(cpars)/3)
-    p=rep(cpars[:Nterms].real)+1j*cpars[:Nterms].imag
-    A=cpars[Nterms:2*Nterms]
-    B=cpars[2*Nterms:3*Nterms]
+def parsave(pAB,filename):
+    (p,A,B) = pAB 
     np.savetxt(filename,np.c_[p.real,p.imag,A.real,A.imag,B.real,B.imag],fmt='%10.6f')
     print('\n# Parameters saved to file '+filename)
 
+# Return fitted TCAs for given parameters 
+def tca_fit(pAB):
+    def Jpair_fit(w):
+        return modelJpair(pAB, w)
+    def Jqp_fit(w):
+        return modelJqp(pAB, w)
+    return (Jpair_fit, Jqp_fit)
+
+# Load TCA fit parameters from file
+def load_fit_parameters(filename):
+    pars = np.loadtxt(filename)
+    Nterms = pars.shape[0]
+    p = pars[:,0] + 1j*pars[:,1]
+    A = pars[:,2] + 1j*pars[:,3]
+    B = pars[:,4] + 1j*pars[:,5]
+    return (p,A,B)
+
+# Load TCA fit parameters from file and calculate data points at x
+def load_fit(x, filename):
+    pars = np.loadtxt(filename)
+    Nterms = pars.shape[0]
+    p = pars[:,0] + 1j*pars[:,1]
+    A = pars[:,2] + 1j*pars[:,3]
+    B = pars[:,4] + 1j*pars[:,5]
+    Jpair_x = modelJpair((p,A,B), x)
+    Jqp_x = modelJqp((p,A,B), x)
+    return ((p,A,B), Jpair_x, Jqp_x)
