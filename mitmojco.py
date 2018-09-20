@@ -389,13 +389,27 @@ def residual(param_list, x, Jpair_data, Jqp_data, thr):
 
     return np.concatenate((ReJpair_diff,ImJpair_diff,ReJqp_diff,ImJqp_diff))
 
-# Save fit parameters p,A,B to file
+#-----------------------------------------------------------------------------------------------
+# Function description:
+#     Save fit parameters p,A,B to file 
+# Input:
+#     pAB -- tuple of parameter arrays p,A,B
+#     filename where parameters are to be saved
+#-----------------------------------------------------------------------------------------------
 def parsave(pAB,filename):
     (p,A,B) = pAB 
     np.savetxt(filename,np.c_[p.real,p.imag,A.real,A.imag,B.real,B.imag],fmt='%10.6f')
     print('\n# Parameters saved to file '+filename)
+    return
 
-# Return fitted TCAs for given parameters 
+#-----------------------------------------------------------------------------------------------
+# Function description:
+#     Return fitted TCAs for given parameters 
+# Input:
+#     pAB -- tuple of parameter arrays p,A,B
+# Returns:
+#     Tuple of fit functions for pair and quasiparticle TCAs
+#-----------------------------------------------------------------------------------------------
 def tca_fit(pAB):
     def Jpair_fit(w):
         return modelJpair(pAB, w)
@@ -403,7 +417,14 @@ def tca_fit(pAB):
         return modelJqp(pAB, w)
     return (Jpair_fit, Jqp_fit)
 
-# Load TCA fit parameters from file
+#-----------------------------------------------------------------------------------------------
+# Function description:
+#     Load TCA fit parameters from file 
+# Input:
+#     filename with fit parameters p,A,B 
+# Returns:
+#     Tuple of fit parameter arrays p,A,B
+#-----------------------------------------------------------------------------------------------
 def load_fit_parameters(filename):
     pars = np.loadtxt(filename)
     Nterms = pars.shape[0]
@@ -412,7 +433,17 @@ def load_fit_parameters(filename):
     B = pars[:,4] + 1j*pars[:,5]
     return (p,A,B)
 
-# Load TCA fit parameters from file and calculate data points at x
+#-----------------------------------------------------------------------------------------------
+# Function description:
+#     Load TCA fit parameters from file and calculate data points at x
+# Input:
+#     x -- array of frequency points 
+#     filename with fit parameters p,A,B 
+# Returns:
+#     Tuple of fit parameter arrays p,A,B
+#     Data points for pair TCA at values of x
+#     Data points for quasiparticle TCA at values of x
+#-----------------------------------------------------------------------------------------------
 def load_fit(x, filename):
     pars = np.loadtxt(filename)
     Nterms = pars.shape[0]
