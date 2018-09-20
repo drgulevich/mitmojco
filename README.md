@@ -1,9 +1,10 @@
 # MiTMoJCo version 1.2
 
-MiTMoJCo (Microscopic Tunneling Model for Josephson Contacts) is C library designed for modeling superconducting
-Josephson junctions within the formalism of microscopic tunneling theory. The purpose of the code is to offer 
-implementation of a computationally demanding part of this calculation which is evaluation of the superconducting
-pair and quasiparticle tunnel currents. 
+MiTMoJCo (Microscopic Tunneling Model for Josephson Contacts) 
+represents a C library and collection of Python tools designed to assist modeling superconducting Josephson junctions within the formalism of microscopic tunneling theory. The purpose of the C code is to offer implementation of a computationally demanding part of this calculation which is evaluation of the superconducting pair and quasiparticle tunnel currents. 
+The tunnel currents calculated by MiTMoJCo are offered to user's disposal to be employed in a specialized ODE/PDE solver or within a finite difference or finite element scheme in a custom C code.
+The source code contains a collection of Python tools to work with tunnel current amplitudes which characterize specific superconducting materials constituting a tunnel junction and 
+examples of modeling some common cases of Josephson contacts.
 
 **Description of the source files**
 
