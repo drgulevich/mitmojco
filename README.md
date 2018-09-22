@@ -28,22 +28,6 @@ examples of modeling some common cases of Josephson contacts.
 
 ``module.py``: supplementary Python module for calculation of tunnel current amplitudes (TCAs) from the BCS expressions, smoothing Riedel peaks and creation of custom fits of TCAs by a sum of complex exponentials used in the C library.  
 
-**Examples**
-
-The source code contains 6 examples of modeling common cases of Josephson contacts:
-
-1. Current-biased SIS junction.
-
-2. Voltage-biased SIS junction under ac drive.
-
-3. Sine-Gordon breather in long Josephson junction.
-
-4. Fluxon in an Annular Josephson junction.
-
-5. Flux Flow Oscillator.
-
-6. deal.II+MiTMoJCo: 2D model of Josephson junction
-
 **Installation**
 
     $ git clone https://github.com/drgulevich/mitmojco
@@ -59,11 +43,48 @@ In the mitmojco directory create and enter the build/ folder. Then execute cmake
     $ make
     $ sudo make install
 
-Check the installation by running one of the provided examples. To compile the first example type
+Check the installation by running one of the provided examples. 
+
+**Examples**
+
+The source code contains 6 examples of modeling common cases of Josephson contacts:
+
+1. Current-biased SIS junction.
+
+2. Voltage-biased SIS junction under ac drive.
+
+3. Sine-Gordon breather in long Josephson junction.
+
+4. Fluxon in an Annular Josephson junction.
+
+5. Flux Flow Oscillator.
+
+6. deal.II+MiTMoJCo: 2D model of Josephson junction.
+
+To compile the first example type from the `examples/` folder
 
     $ make example-1
 
-Use similar command for the others.
+Use similar command to compile examples 1-5. The last example 6 requires `deal.II` finite element library (https://www.dealii.org/).
+
+**Features of mitmojco Python module**
+
+1. Calculation of BCS Tunnel Current Amplitudes
+
+![Alt text](/figures/NbNbN_4K2.png?raw=true "BCS Tunnel Current Amplitudes")
+
+2. Smoothed of BCS Tunnel Current Amplitudes
+
+![Alt text](/figures/NbNbN_4K2.png?raw=true "Smoothed BCS Tunnel Current Amplitudes")
+
+3. Fit by a sum of complex exponentials 
+
+![Alt text](/figures/NbNbN_4K2_fit.png?raw=true "Smoothed BCS Tunnel Current Amplitudes")
+
+4. Saving, loading and comparison of different tunnel current amplitude fits
+
+![Alt text](/figures/TCA_comparison.png?raw=true "Comparison of different tunnel current amplitude fits")
+
 
 **References**
 
