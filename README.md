@@ -71,10 +71,11 @@ Use similar command for the others.
 
 2. MiTMoJCo 1.2 User Guide: https://www.researchgate.net/publication/318380494_User_Guide_for_MiTMoJCo_Microscopic_Tunneling_Model_for_Josephson_Contacts.
 
-**Papers using MiTMoJCo**
+**Research papers using MiTMoJCo**
 
 1. D. R. Gulevich, V. P. Koshelets, and F. V. Kusmartsev, *Josephson Flux Flow Oscillator: the Microscopic Tunneling Approach*, Phys. Rev. B 96, 024215 (2017); https://arxiv.org/abs/1704.03045.
 
-2. D. R. Gulevich, L. V. Filippenko, V. P. Koshelets, *Microscopic tunneling model of Nb-AlN-NbN Josephson flux-flow oscillator*, https://arxiv.org/abs/1809.01642.
+2. D. R. Gulevich, V. P. Koshelets, F. V. Kusmartsev, *Generation of high-frequency chaotic signal with Josephson fluxons*, https://arxiv.org/abs/1709.04052.
 
-3. D. R. Gulevich, V. P. Koshelets, F. V. Kusmartsev, *Generation of high-frequency chaotic signal with Josephson fluxons*, https://arxiv.org/abs/1709.04052.
+3. D. R. Gulevich, L. V. Filippenko, V. P. Koshelets, *Microscopic tunneling model of Nb-AlN-NbN Josephson flux-flow oscillator*, https://arxiv.org/abs/1809.01642.
+
