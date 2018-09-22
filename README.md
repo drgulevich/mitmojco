@@ -14,6 +14,8 @@ examples of modeling some common cases of Josephson contacts.
 
 ``examples/``: folder containing examples of using MiTMoJCo C library.
 
+``figures/``: illustrations to features of the Python ``mitmojco`` module.
+
 ``include/``: folder with C headers ``mitmojco/mitmojco.h`` and ``mitmojco/opt_filter.h``.
 
 ``src/``: folder with the C source code ``mitmojco.c`` and supplementary optimum filtration routine ``opt_filter.c``.
@@ -67,7 +69,7 @@ To compile the first example type from the `examples/` folder
 
 Use similar command to compile examples 1-5. The last example 6 requires `deal.II` finite element library (https://www.dealii.org/).
 
-**Features of mitmojco Python module**
+**Features of the Python ``mitmojco`` module**
 
 1. Calculation of BCS tunnel current amplitudes.
 
