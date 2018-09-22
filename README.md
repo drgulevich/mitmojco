@@ -75,16 +75,15 @@ Use similar command to compile examples 1-5. The last example 6 requires `deal.I
 
 2. Smoothed of BCS Tunnel Current Amplitudes
 
-![Alt text](/figures/NbNbN_4K2.png?raw=true "Smoothed BCS Tunnel Current Amplitudes")
+![Alt text](/figures/NbNbN_4K2_smoothed.png?raw=true "Smoothed BCS Tunnel Current Amplitudes")
 
 3. Fit by a sum of complex exponentials 
 
-![Alt text](/figures/NbNbN_4K2_fit.png?raw=true "Smoothed BCS Tunnel Current Amplitudes")
+![Alt text](/figures/NbNbN_4K2_smoothed_fit.png?raw=true "Smoothed BCS Tunnel Current Amplitudes")
 
 4. Saving, loading and comparison of different tunnel current amplitude fits
 
 ![Alt text](/figures/TCA_comparison.png?raw=true "Comparison of different tunnel current amplitude fits")
-
 
 **References**
 
