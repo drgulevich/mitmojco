@@ -69,11 +69,11 @@ Use similar command to compile examples 1-5. The last example 6 requires `deal.I
 
 **Features of mitmojco Python module**
 
-1. Calculation of BCS Tunnel Current Amplitudes.
+1. Calculation of BCS tunnel current amplitudes.
 
 ![Alt text](/figures/NbNbN_4K2.png?raw=true "BCS Tunnel Current Amplitudes")
 
-2. Smoothing Riedel peaks in BCS Tunnel Current Amplitudes.
+2. Smoothing Riedel peaks in BCS tunnel current amplitudes.
 
 ![Alt text](/figures/NbNbN_4K2_smoothed.png?raw=true "Smoothed BCS Tunnel Current Amplitudes")
 
