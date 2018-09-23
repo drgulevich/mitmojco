@@ -21,10 +21,14 @@ typedef struct {
 	double kgap_over_Rejptilde0;
 	double complex *C;
 	double complex *D;
+	double complex *Acoeff;
+	double complex *Bcoeff;
 	double complex *cexp_z;
 	double complex *alpha0;
 	double complex *alpha1;
 	double **phi_ptrs;
+	double **jbar_pair_ptrs;
+	double **jbar_qp_ptrs;
 	double **jbar_ptrs;
 
 } TunnelCurrentType_Private;
@@ -127,7 +131,11 @@ TunnelCurrentType* mitmojco_create(const char *filename, double a_supp, double k
 		mitmojco_loadamps(filename, p, A, B);
 
 		s->phi_ptrs = malloc( Ntotal * sizeof(double*) ); // array of pointers to phi at physical nodes
+		s->jbar_pair_ptrs = malloc( Ntotal * sizeof(double*) ); // array of pointers to jbar_pair at physical nodes
+		s->jbar_qp_ptrs = malloc( Ntotal * sizeof(double*) ); // array of pointers to jbar_qp at physical nodes
 		s->jbar_ptrs = malloc( Ntotal * sizeof(double*) ); // array of pointers to jbar at physical nodes
+		s->PubInterface.jbar_pair = malloc( Ntotal * sizeof(double) );
+		s->PubInterface.jbar_qp = malloc( Ntotal * sizeof(double) );
 		s->PubInterface.jbar = malloc( Ntotal * sizeof(double) );
 		int i,j;
 		int count = 0;
@@ -144,6 +152,8 @@ TunnelCurrentType* mitmojco_create(const char *filename, double a_supp, double k
 			// Accept physical nodes
 			if(accept) {
 				s->phi_ptrs[count] = &phi[i];
+				s->jbar_pair_ptrs[count] = &(s->PubInterface.jbar_pair[i]);
+				s->jbar_qp_ptrs[count] = &(s->PubInterface.jbar_qp[i]);
 				s->jbar_ptrs[count] = &(s->PubInterface.jbar[i]);
 				count++;	
 			}
@@ -155,6 +165,8 @@ TunnelCurrentType* mitmojco_create(const char *filename, double a_supp, double k
 		s->PubInterface.memstate.cos05phi_old = malloc( s->PubInterface.Nnodes * sizeof(double) );
 		s->C = malloc( s->PubInterface.Nexps * sizeof(double complex) );
 		s->D = malloc( s->PubInterface.Nexps * sizeof(double complex) );
+		s->Acoeff = malloc( s->PubInterface.Nexps * sizeof(double complex) );
+		s->Bcoeff = malloc( s->PubInterface.Nexps * sizeof(double complex) );
 		s->cexp_z = malloc( s->PubInterface.Nexps * sizeof(double complex) );
 		s->alpha0 = malloc( s->PubInterface.Nexps * sizeof(double complex) );
 		s->alpha1 = malloc( s->PubInterface.Nexps * sizeof(double complex) );
@@ -170,6 +182,8 @@ TunnelCurrentType* mitmojco_create(const char *filename, double a_supp, double k
 			s->alpha1[n] = 1. + (1. - ez)/z;
 			s->C[n]=(a_supp*A[n]+B[n])/(-kgap*p[n]);
 			s->D[n]=(a_supp*A[n]-B[n])/(-kgap*p[n]);
+			s->Acoeff[n]=a_supp*A[n]/(-kgap*p[n]);
+			s->Bcoeff[n]=B[n]/(-kgap*p[n]);
 		}
 
 		double Rejptilde0=0.;
@@ -239,6 +253,10 @@ void mitmojco_update( TunnelCurrentType *object ) {
 	{
 		#pragma omp for schedule(static)
 		for(i=0;i<(s->PubInterface.Nnodes);i++) {
+			double ReAcoeffFs=0.;
+			double ReAcoeffGs=0.;
+			double ReBcoeffFs=0.;
+			double ReBcoeffGs=0.;
 			double ReCFs=0.;
 			double ReDGs=0.;
 			double sin05phi_i = sin( 0.5*(*s->phi_ptrs[i]) );
@@ -250,7 +268,13 @@ void mitmojco_update( TunnelCurrentType *object ) {
 					+ s->alpha0[n]*s->PubInterface.memstate.sin05phi_old[i] + s->alpha1[n]*sin05phi_i;
 				ReCFs += creal( s->C[n] * s->PubInterface.memstate.F[i*Nexps+n] );
 				ReDGs += creal( s->D[n] * s->PubInterface.memstate.G[i*Nexps+n] );
+				ReAcoeffFs += creal( s->Acoeff[n] * s->PubInterface.memstate.F[i*Nexps+n] );
+				ReAcoeffGs += creal( s->Acoeff[n] * s->PubInterface.memstate.G[i*Nexps+n] );
+				ReBcoeffFs += creal( s->Bcoeff[n] * s->PubInterface.memstate.F[i*Nexps+n] );
+				ReBcoeffGs += creal( s->Bcoeff[n] * s->PubInterface.memstate.G[i*Nexps+n] );
 			}
+			(*s->jbar_pair_ptrs[i]) = s->kgap_over_Rejptilde0*( sin05phi_i*ReAcoeffFs + cos05phi_i*ReAcoeffGs );
+			(*s->jbar_qp_ptrs[i]) = s->kgap_over_Rejptilde0*( sin05phi_i*ReBcoeffFs - cos05phi_i*ReBcoeffGs );
 			(*s->jbar_ptrs[i]) = s->kgap_over_Rejptilde0*( sin05phi_i*ReCFs + cos05phi_i*ReDGs );
 			s->PubInterface.memstate.sin05phi_old[i] = sin05phi_i;
 			s->PubInterface.memstate.cos05phi_old[i] = cos05phi_i;
@@ -267,11 +291,15 @@ void mitmojco_update( TunnelCurrentType *object ) {
 void mitmojco_free( TunnelCurrentType *object ) {
 	TunnelCurrentType_Private *s = object->self;
 
+	free(s->PubInterface.jbar_pair);
+	free(s->PubInterface.jbar_qp);
 	free(s->PubInterface.jbar);
 	free(s->PubInterface.memstate.sin05phi_old);
 	free(s->PubInterface.memstate.cos05phi_old);
 	free(s->C);
 	free(s->D);
+	free(s->Acoeff);
+	free(s->Bcoeff);
 	free(s->cexp_z);
 	free(s->alpha0);
 	free(s->alpha1);

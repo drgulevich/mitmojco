@@ -37,7 +37,9 @@ typedef struct {
 	MemState memstate; // struct containing previous evolution information 
 	double Rejptilde0; // normalized critical current
 	double alphaN; // damping due to the normal resistance
-	double *jbar; // pointer to the reduced current density
+	double *jbar_pair; // pointer to the pair current density
+	double *jbar_qp; // pointer to the reduced quasiparticle current density
+	double *jbar; // pointer to the reduced current density (pair + reduced quasiparticle)
 	void *self; // pointer to private struct (for internal use only)
 	bool error; // error handling
 } TunnelCurrentType;
