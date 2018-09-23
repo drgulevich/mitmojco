@@ -4,6 +4,31 @@
 #--------- drgulevich@corp.ifmo.ru ------------
 #--- ITMO University, St Petersburg, Russia ---
 #==============================================
+#-----------------------------------------------------------------------------------------
+# This is Python mitmojco module for processing tunnel current amplitudes.
+# For detailed examples of using the module see Jupyter Python notebook ``amplitudes.ipynb``
+#
+# tca_bcs(T, Delta1, Delta2): 
+#       Calculate of tunnel current amplitudes from BCS expressions.
+#
+# tca_smbcs(T, Delta1, Delta2, dsm):
+#       Smooth Riedel peaks in BCS tunnel current amplitudes. 
+#
+# new_fit(x, Jpair_data, Jqp_data, maxNterms, thr):
+#       Fit tunnel current amplitudes by a sum of complex exponentials.
+#
+# parsave(pAB,filename):
+#       Save fit parameters p,A,B to file.
+#
+# tca_fit(pAB):
+#       Return fitted TCAs for given parameters 
+#
+# load_fit_parameters(filename):
+#       Load TCA fit parameters from file 
+#
+# load_fit(x, filename):
+#       Load TCA fit parameters from file and calculate data points at x
+#-----------------------------------------------------------------------------------------
 import numpy as np
 from scipy.integrate import quad
 from scipy.optimize import leastsq
