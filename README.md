@@ -97,7 +97,7 @@ Use similar command to compile examples 1-5. The last example 6 requires `deal.I
 
 1. D. R. Gulevich, V. P. Koshelets, and F. V. Kusmartsev, *Josephson Flux Flow Oscillator: the Microscopic Tunneling Approach*, Phys. Rev. B 96, 024215 (2017); https://arxiv.org/abs/1704.03045.
 
-2. D. R. Gulevich, V. P. Koshelets, F. V. Kusmartsev, *Generation of high-frequency chaotic signal with Josephson fluxons*, https://arxiv.org/abs/1709.04052.
+2. D. R. Gulevich, V. P. Koshelets, F. V. Kusmartsev, *Bridging the Terahertz gap for chaotic sources with superconducting junctions*, Phys. Rev. B 99, 060501(R) (2019); https://arxiv.org/abs/1709.04052.
 
-3. D. R. Gulevich, L. V. Filippenko, V. P. Koshelets, *Microscopic tunneling model of Nb-AlN-NbN Josephson flux-flow oscillator*, https://arxiv.org/abs/1809.01642.
+3. D. R. Gulevich, L. V. Filippenko, V. P. Koshelets, *Microscopic tunneling model of Nb-AlN-NbN Josephson flux-flow oscillator*, J. Low Temp. Phys. 194, 312 (2019); https://arxiv.org/abs/1809.01642.
 
