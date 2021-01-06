@@ -93,7 +93,7 @@ Use similar command to compile examples 1-5. The last example 6 requires `deal.I
 
 2. MiTMoJCo 1.2 User Guide: https://www.researchgate.net/publication/318380494_User_Guide_for_MiTMoJCo_Microscopic_Tunneling_Model_for_Josephson_Contacts.
 
-**Research papers using MiTMoJCo**
+**Research using MiTMoJCo**
 
 1. D. R. Gulevich, V. P. Koshelets, and F. V. Kusmartsev, *Josephson Flux Flow Oscillator: the Microscopic Tunneling Approach*, Phys. Rev. B 96, 024215 (2017); https://doi.org/10.1103/PhysRevB.96.024515.
 
@@ -101,6 +101,12 @@ Use similar command to compile examples 1-5. The last example 6 requires `deal.I
 
 3. D. R. Gulevich, L. V. Filippenko, V. P. Koshelets, *Microscopic tunneling model of Nb-AlN-NbN Josephson flux-flow oscillator*, J. Low Temp. Phys. 194, 312 (2019); https://doi.org/10.1007/s10909-018-2106-x.
 
-4. D. R. Gulevich, *MiTMoJCo: Microscopic Tunneling Model for Josephson Contacts*, Comput. Phys. Commun. 251, 107091 (2020); https://doi.org/10.1016/j.cpc.2019.107091.
+4. MiTMoJCo tunnel current amplitude ``NbNb_4K2_001.fit`` enters *PSCAN2 Superconductor Circuit Simulator* under the TJM approximation name ``tjm1``. http://www.pscan2sim.org.
 
-5. H. G. Ahmad, L. Di Palma, R. Caruso, A. Pal, G. P. Pepe, M. G. Blamire, F. Tafuri, and D. Massarotti, *Critical Current Suppression in Spin-Filter Josephson Junctions*, J. Supercond. Nov. Magn. 33, 3043 (2020); https://doi.org/10.1007/s10948-020-05577-0.
+5. J. A. Delport, *Simulation and verification software for superconducting electronic circuits*, PhD thesis, Stellenbosch University (2019). https://scholar.sun.ac.za/handle/10019.1/106048.
+
+6. D. R. Gulevich, *MiTMoJCo: Microscopic Tunneling Model for Josephson Contacts*, Comput. Phys. Commun. 251, 107091 (2020); https://doi.org/10.1016/j.cpc.2019.107091.
+
+7. H. G. Ahmad, L. Di Palma, R. Caruso, A. Pal, G. P. Pepe, M. G. Blamire, F. Tafuri, and D. Massarotti, *Critical Current Suppression in Spin-Filter Josephson Junctions*, J. Supercond. Nov. Magn. 33, 3043 (2020); https://doi.org/10.1007/s10948-020-05577-0.
+
+8. Д. Р. Гулевич, *Динамика нелинейных систем с памятью*, Университет ИТМО, Санкт-Петербург (2020) [Translation from Russian: D. R. Gulevich, Dynamics of nonlinear systems with memory, the ITMO University, Saint-Petersburg (2020)]. ISBN 978-5-7577-0642-9.
