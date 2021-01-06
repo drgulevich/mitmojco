@@ -101,9 +101,9 @@ Use similar command to compile examples 1-5. The last example 6 requires `deal.I
 
 3. D. R. Gulevich, L. V. Filippenko, V. P. Koshelets, *Microscopic tunneling model of Nb-AlN-NbN Josephson flux-flow oscillator*, J. Low Temp. Phys. 194, 312 (2019); https://doi.org/10.1007/s10909-018-2106-x.
 
-4. MiTMoJCo tunnel current amplitude ``NbNb_4K2_001.fit`` enters *PSCAN2 Superconductor Circuit Simulator* under the TJM approximation name ``tjm1``. http://www.pscan2sim.org.
+4. MiTMoJCo tunnel current amplitude ``NbNb_4K2_001.fit`` enters *PSCAN2 Superconductor Circuit Simulator* under the TJM approximation name ``tjm1``; http://www.pscan2sim.org.
 
-5. J. A. Delport, *Simulation and verification software for superconducting electronic circuits*, PhD thesis, Stellenbosch University (2019). https://scholar.sun.ac.za/handle/10019.1/106048.
+5. J. A. Delport, *Simulation and verification software for superconducting electronic circuits*, PhD thesis, Stellenbosch University (2019); https://scholar.sun.ac.za/handle/10019.1/106048.
 
 6. D. R. Gulevich, *MiTMoJCo: Microscopic Tunneling Model for Josephson Contacts*, Comput. Phys. Commun. 251, 107091 (2020); https://doi.org/10.1016/j.cpc.2019.107091.
 
