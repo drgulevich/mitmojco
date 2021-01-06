@@ -89,15 +89,18 @@ Use similar command to compile examples 1-5. The last example 6 requires `deal.I
 
 **References**
 
-1. D. R. Gulevich, *MiTMoJCo: Microscopic Tunneling Model for Josephson Contacts*, https://arxiv.org/abs/1809.04706.
+1. D. R. Gulevich, *MiTMoJCo: Microscopic Tunneling Model for Josephson Contacts*, Comput. Phys. Commun. 251, 107091 (2020); https://doi.org/10.1016/j.cpc.2019.107091.
 
 2. MiTMoJCo 1.2 User Guide: https://www.researchgate.net/publication/318380494_User_Guide_for_MiTMoJCo_Microscopic_Tunneling_Model_for_Josephson_Contacts.
 
 **Research papers using MiTMoJCo**
 
-1. D. R. Gulevich, V. P. Koshelets, and F. V. Kusmartsev, *Josephson Flux Flow Oscillator: the Microscopic Tunneling Approach*, Phys. Rev. B 96, 024215 (2017); https://arxiv.org/abs/1704.03045.
+1. D. R. Gulevich, V. P. Koshelets, and F. V. Kusmartsev, *Josephson Flux Flow Oscillator: the Microscopic Tunneling Approach*, Phys. Rev. B 96, 024215 (2017); https://doi.org/10.1103/PhysRevB.96.024515.
 
-2. D. R. Gulevich, V. P. Koshelets, F. V. Kusmartsev, *Bridging the Terahertz gap for chaotic sources with superconducting junctions*, Phys. Rev. B 99, 060501(R) (2019); https://arxiv.org/abs/1709.04052.
+2. D. R. Gulevich, V. P. Koshelets, F. V. Kusmartsev, *Bridging the Terahertz gap for chaotic sources with superconducting junctions*, Phys. Rev. B 99, 060501(R) (2019); https://doi.org/10.1103/PhysRevB.99.060501.
 
-3. D. R. Gulevich, L. V. Filippenko, V. P. Koshelets, *Microscopic tunneling model of Nb-AlN-NbN Josephson flux-flow oscillator*, J. Low Temp. Phys. 194, 312 (2019); https://arxiv.org/abs/1809.01642.
+3. D. R. Gulevich, L. V. Filippenko, V. P. Koshelets, *Microscopic tunneling model of Nb-AlN-NbN Josephson flux-flow oscillator*, J. Low Temp. Phys. 194, 312 (2019); https://doi.org/10.1007/s10909-018-2106-x.
 
+4. D. R. Gulevich, *MiTMoJCo: Microscopic Tunneling Model for Josephson Contacts*, Comput. Phys. Commun. 251, 107091 (2020); https://doi.org/10.1016/j.cpc.2019.107091.
+
+5. H. G. Ahmad, L. Di Palma, R. Caruso, A. Pal, G. P. Pepe, M. G. Blamire, F. Tafuri, and D. Massarotti, *Critical Current Suppression in Spin-Filter Josephson Junctions*, J. Supercond. Nov. Magn. 33, 3043 (2020); https://doi.org/10.1007/s10948-020-05577-0.
