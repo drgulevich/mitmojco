@@ -45,6 +45,15 @@ In the mitmojco directory create and enter the build/ folder. Then execute cmake
     $ make
     $ sudo make install
 
+You may need to run 
+
+    $ sudo ldconfig
+	
+to reload the list of system-wide library paths. If the library path is loaded correctly, the following output is expected:
+
+    $ ldconfig -p | grep mitmojco
+      libmitmojco.so (libc6,x86-64) => /usr/local/lib/libmitmojco.so
+
 Check the installation by running one of the provided examples. 
 
 **Examples**
