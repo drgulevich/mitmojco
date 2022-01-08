@@ -70,7 +70,9 @@ The source code contains 6 examples of modeling common cases of Josephson contac
 
 5. Flux Flow Oscillator.
 
-6. deal.II+MiTMoJCo: 2D model of Josephson junction.
+6. Gap resonance (D. V. Averin, ``Gap resonance in the classical dynamics of the current-biased Josephson tunnel junctions", arXiv:2111.07206; https://arxiv.org/abs/2111.07206).
+
+7. deal.II+MiTMoJCo: 2D model of Josephson junction.
 
 To compile the first example type from the `examples/` folder
 

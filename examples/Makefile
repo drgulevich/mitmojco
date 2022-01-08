@@ -15,7 +15,7 @@ LDLIBS = -lmitmojco -fopenmp -lm
 ### make all
 
 .PHONY: all
-all: example-1 example-2 example-3 example-4 example-5
+all: example-1 example-2 example-3 example-4 example-5 example-6
 
 DEPENDS = Makefile
 
@@ -54,6 +54,13 @@ example-5: example-5.o
 
 example-5.o: $(DEPENDS)
 
+### make example-6
+
+example-5: example-6.o
+	$(CC) $@.o -o $@ $(LDLIBS)
+
+example-5.o: $(DEPENDS)
+
 ### make clean
 
 .PHONY: clean
@@ -63,4 +70,5 @@ clean:
 	rm -f example-3 example-3.o
 	rm -f example-4 example-4.o
 	rm -f example-5 example-5.o
+	rm -f example-6 example-6.o	
 
