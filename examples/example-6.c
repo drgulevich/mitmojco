@@ -1,5 +1,7 @@
 /* 
-	example-1.c: Current-biased SIS junction 
+	example-6.c: Gap resonance (see Ref. D. V. Averin, Gap resonance in 
+	the classical dynamics of the current-biased Josephson tunnel junctions,
+	arXiv:2111.07206)
 */
 //==============================================//
 //---------- by Dmitry R. Gulevich -------------//
@@ -60,7 +62,7 @@ int main (int argc, char* argv[]) {
 		}
 
 	printf("#==============================================\n");
-	printf("#--- Example 1: Current-biased SIS junction ---\n");
+	printf("#--- Example 6: Gap resonance ---\n");
 	printf("#==============================================\n");
 
 	double gamma_start, gamma_finish, gamma_step;
@@ -167,6 +169,7 @@ void sis_cbias(double gamma_start, double gamma_finish, double gamma_step) {
 	clock_t cticks0 = clock(); // cpu timing
 	double wtime0 = omp_get_wtime(); // wall clock timing
 
+	// Down
 	for(gamma=gamma_start; ((gamma < gamma_finish + 0.5*gamma_step) && (gamma_step>0)) ||
 			((gamma > gamma_finish + 0.5*gamma_step) && (gamma_step<0)); gamma+=gamma_step) {
 	
@@ -204,11 +207,7 @@ void sis_cbias(double gamma_start, double gamma_finish, double gamma_step) {
 	gamma_start = gamma;
 	gamma_step = -gamma_step;
 	
-/*	printf("# gamma_start: %f",gamma_start);
-	printf("# gamma_finish: %f",gamma_finish);
-	printf("# gamma_step: %f",gamma_step);
-	*/
-		
+	// Up again to find the hysteresis
 	for(gamma=gamma_start; ((gamma < gamma_finish + 0.5*gamma_step) && (gamma_step>0)) ||
 			((gamma > gamma_finish + 0.5*gamma_step) && (gamma_step<0)); gamma+=gamma_step) {
 	
