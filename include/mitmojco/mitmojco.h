@@ -3,8 +3,7 @@
 */
 //==============================================//
 //---------- by Dmitry R. Gulevich -------------//
-//--------- drgulevich@corp.ifmo.ru ------------//
-//--- ITMO University, St Petersburg, Russia ---//
+//----------- drgulevich@gmail.com -------------//
 //==============================================//
 #ifndef MITMOJCO_HEADER
 #define MITMOJCO_HEADER

@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 #==============================================
 #---------- by Dmitry R. Gulevich -------------
-#--------- drgulevich@corp.ifmo.ru ------------
-#--- ITMO University, St Petersburg, Russia ---
+#---------- drgulevich@gmail.com --------------
 #==============================================
 #-----------------------------------------------------------------------------------------
 # This is Python mitmojco module for processing tunnel current amplitudes.

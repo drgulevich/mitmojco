@@ -4,8 +4,7 @@
 */
 //==============================================//
 //---------- by Dmitry R. Gulevich -------------//
-//--------- drgulevich@corp.ifmo.ru ------------//
-//--- ITMO University, St Petersburg, Russia ---//
+//----------- drgulevich@gmail.com -------------//
 //==============================================//
 #include <math.h>
 #include <stdlib.h> // malloc

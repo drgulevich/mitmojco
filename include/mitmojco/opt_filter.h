@@ -3,8 +3,7 @@
 */
 //==============================================//
 //---------- by Dmitry R. Gulevich -------------//
-//--------- drgulevich@corp.ifmo.ru ------------//
-//--- ITMO University, St Petersburg, Russia ---//
+//----------- drgulevich@gmail.com -------------//
 //==============================================//
 #ifndef OPT_FILTER_HEADER
 #define OPT_FILTER_HEADER

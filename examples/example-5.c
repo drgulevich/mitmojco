@@ -3,8 +3,7 @@
 */
 //==============================================//
 //---------- by Dmitry R. Gulevich -------------//
-//--------- drgulevich@corp.ifmo.ru ------------//
-//--- ITMO University, St Petersburg, Russia ---//
+//----------- drgulevich@gmail.com -------------//
 //==============================================//
 /* MODEL DESCRIPTION:
 Numerical calculation of current-voltage characteristics of FFO using a quasi-1d model, Eq.(15)-(16)
@@ -48,7 +47,7 @@ const double Wend = 1.0/LAMBDA_J; // Width of the end
 const double DX = 0.5/LAMBDA_J; // Spatial discretization
 
 /* Model Parameters */
-#define OMP_NUM_THREADS 4 //  number of OpenMP threads (use 1 for small Josephson contact)
+#define OMP_NUM_THREADS 2 //  number of OpenMP threads (use 1 for small Josephson contact)
 #define SETTLING_TIME 200. // time interval upon which voltage starts being recorded
 #define TMAX 1000. // integration time
 #define N_OPT_FILTER 5 // optimum filtration level (1 for direct summation)
@@ -179,7 +178,7 @@ void ffo_configure() {
 		else {
 			width[i] = W0;
 			dlogw[i] = 0.;
-		}
+		}		
 	}
 
 	// Calculate FFO area
